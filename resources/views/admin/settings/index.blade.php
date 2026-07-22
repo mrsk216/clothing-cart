@@ -1,0 +1,76 @@
+@extends('admin.layout')
+
+@section('title', 'Settings')
+
+@section('content')
+<div class="p-6">
+    <h1 class="text-2xl font-bold text-white mb-6">Settings</h1>
+
+    <div class="card p-6">
+        <form method="POST" action="{{ route('admin.settings.update') }}" class="space-y-6">
+            @csrf
+            @method('PUT')
+
+            <div>
+                <h3 class="font-semibold text-white mb-4">General Settings</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Site Name</label>
+                        <input type="text" name="site_name" value="{{ $settings['site_name'] ?? 'SPM Enterprise' }}" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Contact Email</label>
+                        <input type="email" name="contact_email" value="{{ $settings['contact_email'] ?? 'info@spmapp.com' }}" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Contact Phone</label>
+                        <input type="text" name="contact_phone" value="{{ $settings['contact_phone'] ?? '+91-9876543210' }}" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                        <input type="text" name="address" value="{{ $settings['address'] ?? '123, Business Street, Mumbai' }}" class="input-field">
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-semibold text-white mb-4">Payment Settings</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">UPI ID</label>
+                        <input type="text" name="upi_id" value="{{ $settings['upi_id'] ?? 'company@upi' }}" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Bank Account Name</label>
+                        <input type="text" name="bank_account_name" value="{{ $settings['bank_account_name'] ?? 'SPM Enterprises' }}" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Bank Account Number</label>
+                        <input type="text" name="bank_account_number" value="{{ $settings['bank_account_number'] ?? '123456789012' }}" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">IFSC Code</label>
+                        <input type="text" name="bank_ifsc_code" value="{{ $settings['bank_ifsc_code'] ?? 'SBIN0001234' }}" class="input-field">
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-semibold text-white mb-4">Shipping Settings</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Free Shipping Threshold (₹)</label>
+                        <input type="number" name="free_shipping_threshold" value="{{ $settings['free_shipping_threshold'] ?? 500 }}" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Shipping Charge (₹)</label>
+                        <input type="number" name="shipping_charge" value="{{ $settings['shipping_charge'] ?? 50 }}" class="input-field">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary">Save Settings</button>
+        </form>
+    </div>
+</div>
+@endsection

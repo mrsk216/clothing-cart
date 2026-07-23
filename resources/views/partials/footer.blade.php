@@ -5,7 +5,7 @@
             <h2 class="text-2xl md:text-3xl font-bold mb-2">Subscribe to Our Newsletter</h2>
             <p class="text-white/80 mb-6">Get updates about new products and special offers</p>
             <form class="max-w-md mx-auto flex gap-2">
-                <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg text-gray-800 focus:outline-none">
+                <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 border border-gray-200 text-secondary rounded-lg focus:outline-none">
                 <button type="submit" class="bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-secondary-dark transition-colors">Subscribe</button>
             </form>
         </div>

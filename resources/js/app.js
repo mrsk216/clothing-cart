@@ -84,3 +84,33 @@ window.addToCart = function (productId, quantity = 1) {
 document.addEventListener("DOMContentLoaded", function () {
     updateCartCount();
 });
+
+/****************************
+  Swiper Slider
+****************************/
+import Swiper from "swiper";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+
+//Product Thumbs Slider
+const productThumbSlider = new Swiper(".productThumbSlider", {
+    modules: [Navigation],
+    spaceBetween: 10,
+    slidesPerView: 4,
+    freeMode: true,
+    watchSlidesProgress: true,
+    navigation: {
+        nextEl: ".productThumbSlider-next",
+        prevEl: ".productThumbSlider-prev",
+    },
+});
+const productThumbSlider2 = new Swiper(".productThumbSlider2", {
+    modules: [FreeMode, Thumbs],
+    spaceBetween: 10,
+    thumbs: {
+        swiper: productThumbSlider,
+    },
+});

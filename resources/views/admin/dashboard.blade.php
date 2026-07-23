@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="p-6">
-    <h1 class="text-2xl font-bold text-white mb-6">Dashboard</h1>
+    <h1 class="text-2xl font-bold text-primary mb-6">Dashboard</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div class="stat-card">
@@ -39,38 +39,38 @@
 
     <div class="grid lg:grid-cols-2 gap-6">
         <div class="card p-6">
-            <h3 class="font-semibold text-white mb-4">Recent Orders</h3>
+            <h3 class="font-semibold text-primary mb-4">Recent Orders</h3>
             <div class="space-y-3">
                 @forelse($recentOrders as $order)
-                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div>
-                            <p class="text-sm font-medium text-white">#{{ $order->order_number }}</p>
-                            <p class="text-xs text-gray-400">{{ $order->created_at->diffForHumans() }}</p>
+                            <p class="text-sm font-medium text-primary">#{{ $order->order_number }}</p>
+                            <p class="text-xs text-gray-500">{{ $order->created_at->diffForHumans() }}</p>
                         </div>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                            {{ $order->status === 'delivered' ? 'bg-green-500/20 text-green-300' : 'bg-yellow-500/20 text-yellow-300' }}">
-                            {{ ucfirst($order->status) }}
+                            {{ $order->status === 'delivered' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
+                            {{ ucfirst(str_replace('_', ' ', $order->status)) }}
                         </span>
                     </div>
                 @empty
-                    <p class="text-gray-400 text-sm">No orders yet.</p>
+                    <p class="text-gray-500 text-sm">No orders yet.</p>
                 @endforelse
             </div>
         </div>
 
         <div class="card p-6">
-            <h3 class="font-semibold text-white mb-4">Pending Payment Verifications</h3>
+            <h3 class="font-semibold text-primary mb-4">Pending Payment Verifications</h3>
             <div class="space-y-3">
                 @forelse($pendingVerifications as $payment)
-                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div>
-                            <p class="text-sm font-medium text-white">Order #{{ $payment->order->order_number ?? 'N/A' }}</p>
-                            <p class="text-xs text-gray-400">₹{{ number_format($payment->amount, 2) }}</p>
+                            <p class="text-sm font-medium text-primary">Order #{{ $payment->order->order_number ?? 'N/A' }}</p>
+                            <p class="text-xs text-gray-500">₹{{ number_format($payment->amount, 2) }}</p>
                         </div>
                         <a href="{{ route('admin.payment-verification') }}" class="text-xs text-secondary hover:underline">Review</a>
                     </div>
                 @empty
-                    <p class="text-gray-400 text-sm">No pending verifications.</p>
+                    <p class="text-gray-500 text-sm">No pending verifications.</p>
                 @endforelse
             </div>
         </div>

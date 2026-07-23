@@ -85,21 +85,10 @@
                 <p class="section-subtitle">Browse our extensive collection of products</p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @php
-                    $categories = \App\Models\Category::active()->parents()->with('children')->get();
-                @endphp
                 @forelse($categories as $category)
                     <a href="{{ route('shop', ['category' => $category->slug]) }}" class="card p-6 text-center group hover:border-secondary/50 transition-all duration-300">
                         <div class="w-20 h-20 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-secondary/20 transition-colors">
-                            <span class="text-3xl">
-                                @switch($category->slug)
-                                    @case('paper-products') 📄 @break
-                                    @case('stamp-pads') 🔏 @break
-                                    @case('rubber-seals') 🖨️ @break
-                                    @case('screen-printing-materials') 🎨 @break
-                                    @default 📦
-                                @endswitch
-                            </span>
+                            <span class="text-3xl">{{ $category->image }}</span>
                         </div>
                         <h3 class="font-semibold text-primary text-lg mb-2">{{ $category->name }}</h3>
                         <p class="text-sm text-gray-500">{{ $category->description ?? Str::limit($category->name . ' - High quality products', 60) }}</p>
@@ -137,14 +126,15 @@
                 </a>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @php
-                    $featuredProducts = \App\Models\Product::active()->featured()->with('primaryImage', 'category')->take(8)->get();
-                @endphp
                 @forelse($featuredProducts as $product)
                     <div class="product-card">
                         <a href="{{ route('product.detail', $product->slug) }}" class="block aspect-square bg-gray-50 overflow-hidden">
                             <div class="w-full h-full bg-gradient-to-br from-secondary/10 to-primary/10 flex items-center justify-center">
-                                <span class="text-4xl">📦</span>
+                                @if ($product->primaryImage != null)
+                                    <img src="{{ asset('storage/'. $product->primaryImage->image_path) }}" alt="{{ $product->name }}" class="w-full h-full">
+                                @else
+                                    <span class="text-4xl">📦</span>
+                                @endif
                             </div>
                             @if($product->discount_percent > 0)
                                 <span class="absolute top-2 left-2 bg-error text-white text-xs px-2 py-1 rounded-full font-semibold">

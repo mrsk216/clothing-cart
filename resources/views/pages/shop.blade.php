@@ -48,7 +48,11 @@
                         <div class="product-card">
                             <a href="{{ route('product.detail', $product->slug) }}" class="block aspect-square bg-gray-50 overflow-hidden">
                                 <div class="w-full h-full bg-gradient-to-br from-secondary/10 to-primary/10 flex items-center justify-center">
-                                    <span class="text-4xl">📦</span>
+                                    @if ($product->primaryImage != null)
+                                        <img src="{{ asset('storage/'. $product->primaryImage->image_path) }}" alt="{{ $product->name }}" class="w-full h-full">
+                                    @else
+                                        <span class="text-4xl">📦</span>
+                                    @endif
                                 </div>
                             </a>
                             <div class="p-4">

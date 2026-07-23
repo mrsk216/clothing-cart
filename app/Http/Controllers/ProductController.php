@@ -77,4 +77,16 @@ class ProductController extends Controller
 
         return response()->json($products);
     }
+
+    public function show(Product $product)
+    {
+        $product->load('images', 'category', 'reviews');
+        $relatedProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->active()
+            ->with('primaryImage')
+            ->take(4)
+            ->get();
+        return view('pages.product', compact('product', 'relatedProducts'));
+    }
 }

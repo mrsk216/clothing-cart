@@ -13,10 +13,32 @@
     </div>
 
     <div class="grid md:grid-cols-2 gap-8 mb-12">
-        <div>
-            <div class="aspect-square bg-gray-50 rounded-xl flex items-center justify-center mb-4">
+        <div class="aspect-square mb-4">
+            @if ($product->images != null)
+                <div class="swiper mySwiper2 productThumbSlider2">
+                    <div class="swiper-wrapper">
+                        @foreach ($product->images as $pimg)
+                            <div class="swiper-slide">
+                                <img src="{{ asset('storage/'. $pimg->image_path) }}" alt="{{ $product->name }}">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <hr class="border-gray-300 my-2">
+                <div thumbsSlider="" class="swiper mySwiper productThumbSlider">
+                    <div class="swiper-wrapper">
+                        @foreach ($product->images as $pimg)
+                            <div class="swiper-slide">
+                                <img src="{{ asset('storage/'. $pimg->image_path) }}" alt="{{ $product->name }}">
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-next productThumbSlider-next !text-white w-8 h-8 bg-primary/80 rounded-full p-3"></div>
+                    <div class="swiper-button-prev productThumbSlider-prev !text-white w-8 h-8 bg-primary/80 rounded-full p-3"></div>
+                </div>
+            @else
                 <span class="text-6xl">📦</span>
-            </div>
+            @endif
         </div>
         <div>
             <span class="text-sm text-secondary font-medium">{{ $product->category?->name ?? 'General' }}</span>
@@ -29,8 +51,6 @@
                     <span class="badge-secondary">Save {{ $product->discount_percent }}%</span>
                 @endif
             </div>
-
-            <p class="text-gray-600 mb-6">{{ $product->short_description ?? $product->description }}</p>
 
             <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
@@ -64,6 +84,8 @@
                     Easy Returns
                 </p>
             </div>
+
+            <p class="text-gray-600 mt-6">{{ $product->short_description ?? $product->description }}</p>
         </div>
     </div>
 
@@ -75,7 +97,11 @@
                 <div class="product-card">
                     <a href="{{ route('product.detail', $related->slug) }}" class="block aspect-square bg-gray-50 overflow-hidden">
                         <div class="w-full h-full bg-gradient-to-br from-secondary/10 to-primary/10 flex items-center justify-center">
-                            <span class="text-4xl">📦</span>
+                            @if ($related->primaryImage != null)
+                                <img src="{{ asset('storage/'. $related->primaryImage->image_path) }}" alt="{{ $related->name }}" class="w-full h-full">
+                            @else
+                                <span class="text-4xl">📦</span>
+                            @endif
                         </div>
                     </a>
                     <div class="p-4">

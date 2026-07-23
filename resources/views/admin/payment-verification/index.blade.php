@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="p-6">
-    <h1 class="text-2xl font-bold text-white mb-6">Payment Verification</h1>
+    <h1 class="text-2xl font-bold text-primary mb-6">Payment Verification</h1>
 
     <div class="card p-6">
         <div class="overflow-x-auto">
@@ -36,9 +36,9 @@
                             </td>
                             <td>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                    {{ $payment->status === 'approved' ? 'bg-green-500/20 text-green-300' : '' }}
-                                    {{ $payment->status === 'rejected' ? 'bg-red-500/20 text-red-300' : '' }}
-                                    {{ $payment->status === 'pending' ? 'bg-yellow-500/20 text-yellow-300' : '' }}">
+                                    {{ $payment->status === 'approved' ? 'bg-green-100 text-green-800' : '' }}
+                                    {{ $payment->status === 'rejected' ? 'bg-red-100 text-red-800' : '' }}
+                                    {{ $payment->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}">
                                     {{ ucfirst($payment->status) }}
                                 </span>
                             </td>
@@ -47,9 +47,9 @@
                                     <form method="POST" action="{{ route('admin.payment.verify', $payment->id) }}" class="flex gap-2">
                                         @csrf
                                         <input type="hidden" name="status" value="approved">
-                                        <button type="submit" class="text-green-400 hover:text-green-300 text-sm">Approve</button>
+                                        <button type="submit" class="text-green-600 hover:text-green-800 text-sm">Approve</button>
                                     </form>
-                                    <button onclick="showRejectModal({{ $payment->id }})" class="text-red-400 hover:text-red-300 text-sm">Reject</button>
+                                    <button onclick="showRejectModal({{ $payment->id }})" class="text-red-600 hover:text-red-800 text-sm">Reject</button>
                                 @else
                                     <span class="text-gray-500 text-sm">Processed</span>
                                 @endif

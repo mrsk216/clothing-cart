@@ -49,7 +49,7 @@
     </div>
 
     <div class="space-y-4">
-        @forelse(auth()->user()->addresses ?? [] as $address)
+        @forelse($addresses as $address)
             <div class="card p-4 flex items-start justify-between">
                 <div>
                     <p class="font-medium text-primary">{{ $address->name }}</p>

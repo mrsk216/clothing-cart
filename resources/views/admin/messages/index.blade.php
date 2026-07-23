@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="p-6">
-    <h1 class="text-2xl font-bold text-white mb-6">Contact Messages</h1>
+    <h1 class="text-2xl font-bold text-primary mb-6">Contact Messages</h1>
 
     <div class="card p-6">
         <div class="overflow-x-auto">
@@ -28,7 +28,7 @@
                             <td>{{ Str::limit($message->message, 50) }}</td>
                             <td>{{ $message->created_at->format('d M Y') }}</td>
                             <td>
-                                <a href="mailto:{{ $message->email }}" class="text-secondary hover:underline text-sm">Reply</a>
+                                <a href="mailto:{{ $message->email }}" class="text-secondary hover:underline text-sm text-shadow">Reply</a>
                             </td>
                         </tr>
                     @empty

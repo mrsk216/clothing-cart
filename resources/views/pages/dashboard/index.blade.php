@@ -12,21 +12,21 @@
             <div class="stat-icon bg-primary/10 text-primary">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
             </div>
-            <div class="stat-value">{{ auth()->user()->orders()->count() }}</div>
+            <div class="stat-value">{{ $totalOrders }}</div>
             <div class="stat-label">Total Orders</div>
         </div>
         <div class="stat-card">
             <div class="stat-icon bg-success/10 text-success">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
-            <div class="stat-value">{{ auth()->user()->orders()->where('status', 'delivered')->count() }}</div>
+            <div class="stat-value">{{ $completedOrders }}</div>
             <div class="stat-label">Completed Orders</div>
         </div>
         <div class="stat-card">
             <div class="stat-icon bg-secondary/10 text-secondary">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
             </div>
-            <div class="stat-value">{{ auth()->user()->wishlists()->count() }}</div>
+            <div class="stat-value">{{ $wishlistCount }}</div>
             <div class="stat-label">Wishlist Items</div>
         </div>
     </div>
@@ -34,7 +34,6 @@
     <div class="grid md:grid-cols-2 gap-6">
         <div class="card p-6">
             <h2 class="font-semibold text-primary mb-4">Recent Orders</h2>
-            @php $recentOrders = auth()->user()->orders()->latest()->take(5)->get(); @endphp
             @if($recentOrders->count() > 0)
                 <div class="space-y-3">
                     @foreach($recentOrders as $order)

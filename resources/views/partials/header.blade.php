@@ -115,9 +115,6 @@
                         </svg>
                     </a>
                     <div class="absolute left-0 mt-0 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-2 hidden group-hover:block z-50">
-                        @php
-                            $categories = \App\Models\Category::active()->parents()->with('children')->get();
-                        @endphp
                         @foreach($categories as $category)
                             <div class="relative group/sub">
                                 <a href="{{ route('shop', ['category' => $category->slug]) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-secondary">
@@ -167,7 +164,6 @@
             <ul class="space-y-1">
                 <li><a href="{{ route('home') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg">Home</a></li>
                 <li><a href="{{ route('shop') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg">All Products</a></li>
-                @php $categories = \App\Models\Category::active()->parents()->get(); @endphp
                 @foreach($categories as $category)
                     <li><a href="{{ route('shop', ['category' => $category->slug]) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg">{{ $category->name }}</a></li>
                 @endforeach

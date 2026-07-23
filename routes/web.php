@@ -6,20 +6,25 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AddressController;
 
-Route::view('/', 'welcome')->name('home');
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\DashboardController;
+
+Route::get('/', [PageController::class, 'home'])->name('home');
 
 // Static Pages
-Route::view('/about', 'pages.about')->name('about');
-Route::view('/contact', 'pages.contact')->name('contact');
-Route::get('/privacy-policy', function () { return view('pages.privacy'); })->name('privacy');
-Route::get('/shipping-policy', function () { return view('pages.shipping'); })->name('shipping');
-Route::get('/return-policy', function () { return view('pages.returns'); })->name('returns');
-Route::get('/terms-conditions', function () { return view('pages.terms'); })->name('terms');
+Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
+Route::get('/shipping-policy', [PageController::class, 'shipping'])->name('shipping');
+Route::get('/return-policy', [PageController::class, 'returns'])->name('returns');
+Route::get('/terms-conditions', [PageController::class, 'terms'])->name('terms');
 
 // Shop Routes
 Route::get('/products', [ProductController::class, 'shop'])->name('shop');
 Route::get('/product/{slug}', [ProductController::class, 'detail'])->name('product.detail');
+Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
 Route::post('/products/search', [ProductController::class, 'search'])->name('products.search');
 
 // Cart Routes
@@ -42,6 +47,7 @@ Route::post('/track-order', [OrderController::class, 'trackOrder'])->name('track
 
 // Wishlist
 Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+Route::get('/wishlist/{id}', [WishlistController::class, 'dedestroystroy'])->name('wishlist.delete');
 
 // Blog
 Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog');
@@ -49,25 +55,27 @@ Route::get('/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])
 
 // Auth Routes (Fortify)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', fn() => view('pages.dashboard.index'))->name('dashboard');
-    Route::get('/orders', [OrderController::class, 'myOrders'])->name('orders');
-    Route::get('/order/{id}', [OrderController::class, 'orderDetail'])->name('order.detail');
-    Route::get('/profile', fn() => view('pages.dashboard.profile'))->name('profile');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/orders', [DashboardController::class, 'orders'])->name('orders');
+    Route::get('/order/{id}', [DashboardController::class, 'orderDetail'])->name('order.detail');
+    Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
-    Route::get('/addresses', fn() => view('pages.dashboard.addresses'))->name('addresses');
+    Route::get('/addresses', [DashboardController::class, 'addresses'])->name('addresses');
     Route::get('/download-invoice/{order}', [OrderController::class, 'downloadInvoice'])->name('invoice.download');
     Route::post('/payment/submit', [PaymentController::class, 'submit'])->name('payment.submit');
-    Route::post('/addresses', [App\Http\Controllers\AddressController::class, 'store'])->name('addresses.store');
-    Route::put('/addresses/{address}', [App\Http\Controllers\AddressController::class, 'update'])->name('addresses.update');
-    Route::delete('/addresses/{address}', [App\Http\Controllers\AddressController::class, 'destroy'])->name('addresses.destroy');
+    Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
+    Route::put('/addresses/{address}', [AddressController::class, 'update'])->name('addresses.update');
+    Route::delete('/addresses/{address}', [AddressController::class, 'destroy'])->name('addresses.destroy');
 });
 
 // Admin Routes
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/products', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('products');
     Route::get('/products/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('products.store');
+    Route::post('/products/{product}/toggle-status', [App\Http\Controllers\Admin\ProductController::class, 'toggleStatus'])->name('products.toggle-status');
+    Route::get('/products/{product}', [App\Http\Controllers\Admin\ProductController::class, 'show'])->name('products.show');
     Route::get('/products/{product}/edit', [App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('products.destroy');
@@ -92,7 +100,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports');
     Route::get('/reports/{type}', [App\Http\Controllers\Admin\ReportController::class, 'export'])->name('reports.export');
     Route::get('/blog', [App\Http\Controllers\Admin\BlogController::class, 'index'])->name('blog');
+    Route::get('/blog/create', [App\Http\Controllers\Admin\BlogController::class, 'create'])->name('blog.create');
     Route::post('/blog', [App\Http\Controllers\Admin\BlogController::class, 'store'])->name('blog.store');
+    Route::get('/blog/{blog}/edit', [App\Http\Controllers\Admin\BlogController::class, 'edit'])->name('blog.edit');
     Route::put('/blog/{post}', [App\Http\Controllers\Admin\BlogController::class, 'update'])->name('blog.update');
     Route::delete('/blog/{post}', [App\Http\Controllers\Admin\BlogController::class, 'destroy'])->name('blog.destroy');
     Route::get('/messages', [App\Http\Controllers\Admin\MessageController::class, 'index'])->name('messages');

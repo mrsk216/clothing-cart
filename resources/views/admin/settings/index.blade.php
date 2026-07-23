@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="p-6">
-    <h1 class="text-2xl font-bold text-white mb-6">Settings</h1>
+    <h1 class="text-2xl font-bold text-primary mb-6">Settings</h1>
 
     <div class="card p-6">
         <form method="POST" action="{{ route('admin.settings.update') }}" class="space-y-6">
@@ -12,7 +12,7 @@
             @method('PUT')
 
             <div>
-                <h3 class="font-semibold text-white mb-4">General Settings</h3>
+                <h3 class="font-semibold text-primary mb-4">General Settings</h3>
                 <div class="grid md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Site Name</label>
@@ -34,7 +34,7 @@
             </div>
 
             <div>
-                <h3 class="font-semibold text-white mb-4">Payment Settings</h3>
+                <h3 class="font-semibold text-primary mb-4">Payment Settings</h3>
                 <div class="grid md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">UPI ID</label>
@@ -56,7 +56,7 @@
             </div>
 
             <div>
-                <h3 class="font-semibold text-white mb-4">Shipping Settings</h3>
+                <h3 class="font-semibold text-primary mb-4">Shipping Settings</h3>
                 <div class="grid md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Free Shipping Threshold (₹)</label>

@@ -90,7 +90,7 @@ class Product extends Model
 
     public function getFinalPriceAttribute()
     {
-        return $this->compare_price ?: $this->price;
+        return $this->price ?: $this->compare_price;
     }
 
     public function getDiscountPercentAttribute()

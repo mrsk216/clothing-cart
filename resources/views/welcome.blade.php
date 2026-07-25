@@ -84,8 +84,8 @@
                 <h2 class="section-title">Shop by Category</h2>
                 <p class="section-subtitle">Browse our extensive collection of products</p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @forelse($categories as $category)
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @forelse($categories->take(4) as $category)
                     <a href="{{ route('shop', ['category' => $category->slug]) }}" class="card p-6 text-center group hover:border-secondary/50 transition-all duration-300">
                         <div class="w-20 h-20 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-secondary/20 transition-colors">
                             <span class="text-3xl">{{ $category->image }}</span>
@@ -112,13 +112,13 @@
         </div>
     </section>
 
-    <!-- Featured Products -->
+    <!-- Popular Products -->
     <section class="py-16 md:py-20 bg-surface">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex items-center justify-between mb-12">
                 <div>
-                    <h2 class="section-title">Featured Products</h2>
-                    <p class="section-subtitle">Hand-picked products just for you</p>
+                    <h2 class="section-title">Popular Products</h2>
+                    <p class="section-subtitle">Most selling products loved by our customers</p>
                 </div>
                 <a href="{{ route('shop') }}" class="btn-ghost text-secondary hidden sm:inline-flex">
                     View All
@@ -126,7 +126,7 @@
                 </a>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @forelse($featuredProducts as $product)
+                @forelse($popularProducts as $product)
                     <div class="product-card">
                         <a href="{{ route('product.detail', $product->slug) }}" class="block aspect-square bg-gray-50 overflow-hidden">
                             <div class="w-full h-full bg-gradient-to-br from-secondary/10 to-primary/10 flex items-center justify-center">
@@ -155,10 +155,16 @@
                                     <span class="price-discount">₹{{ number_format($product->compare_price, 2) }}</span>
                                 @endif
                             </div>
-                            <div class="product-actions">
-                                <button onclick="addToCart({{ $product->id }})" class="flex-1 btn-primary text-sm py-2">
-                                    Add to Cart
-                                </button>
+                            <div class="flex gap-2 mt-2">
+                                @if($product->stock_quantity > 0)
+                                    <button onclick="addToCart({{ $product->id }})" class="flex-1 btn-primary text-sm py-2">
+                                        Add to Cart
+                                    </button>
+                                @else
+                                    <button class="flex-1 btn-primary text-sm py-2" disabled>
+                                        Out of Stock
+                                    </button>
+                                @endif
                                 <button onclick="addToWishlist({{ $product->id }})" class="w-10 h-10 bg-white rounded-lg shadow flex items-center justify-center text-gray-600 hover:text-error transition-colors">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
@@ -169,7 +175,7 @@
                     </div>
                 @empty
                     <div class="col-span-full text-center py-12">
-                        <p class="text-gray-500">Featured products coming soon...</p>
+                        <p class="text-gray-500">Popular products coming soon...</p>
                     </div>
                 @endforelse
             </div>

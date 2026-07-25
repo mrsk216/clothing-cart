@@ -4,8 +4,9 @@
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-2xl md:text-3xl font-bold mb-2">Subscribe to Our Newsletter</h2>
             <p class="text-white/80 mb-6">Get updates about new products and special offers</p>
-            <form class="max-w-md mx-auto flex gap-2">
-                <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 border border-gray-200 text-secondary rounded-lg focus:outline-none">
+            <form method="POST" action="{{ route('newsletter.subscribe') }}" class="max-w-md mx-auto grid md:flex gap-2">
+                @csrf
+                <input type="email" name="email" required placeholder="Enter your email" class="flex-1 px-4 py-3 border border-gray-200 text-secondary rounded-lg focus:outline-none mb-2">
                 <button type="submit" class="bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-secondary-dark transition-colors">Subscribe</button>
             </form>
         </div>
@@ -53,6 +54,7 @@
                     <li><a href="{{ route('about') }}" class="hover:text-secondary transition-colors">About Us</a></li>
                     <li><a href="{{ route('blog') }}" class="hover:text-secondary transition-colors">Blog</a></li>
                     <li><a href="{{ route('contact') }}" class="hover:text-secondary transition-colors">Contact Us</a></li>
+                    <li><a href="{{ route('bulk.enquiry') }}" class="hover:text-secondary transition-colors">Bulk Order Enquiry</a></li>
                     <li><a href="{{ route('track.order') }}" class="hover:text-secondary transition-colors">Track Order</a></li>
                 </ul>
             </div>

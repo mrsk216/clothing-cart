@@ -12,6 +12,7 @@ class SettingController extends Controller
     public function index()
     {
         $settings = Setting::all()->pluck('value', 'key')->toArray();
+
         return view('admin.settings.index', compact('settings'));
     }
 
@@ -21,7 +22,10 @@ class SettingController extends Controller
             'site_name' => 'required|string|max:255',
             'contact_email' => 'required|email',
             'contact_phone' => 'required|string',
+            'whatsapp_number' => 'nullable|string|max:20',
             'address' => 'required|string',
+            'gst_number' => 'nullable|string|max:20',
+            'gst_rate' => 'nullable|numeric|min:0|max:28',
             'upi_id' => 'required|string',
             'bank_name' => 'required|string',
             'bank_account_name' => 'required|string',
@@ -29,12 +33,12 @@ class SettingController extends Controller
             'bank_ifsc_code' => 'required|string',
             'free_shipping_threshold' => 'required|numeric|min:0',
             'shipping_charge' => 'required|numeric|min:0',
+            'meta_description' => 'nullable|string|max:300',
+            'meta_keywords' => 'nullable|string|max:255',
             'qr_code' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // Handle QR code upload
         if ($request->hasFile('qr_code')) {
-            // Delete old QR code if exists
             $oldQrPath = Setting::where('key', 'qr_code_path')->value('value');
             if ($oldQrPath && Storage::disk('public')->exists($oldQrPath)) {
                 Storage::disk('public')->delete($oldQrPath);
@@ -44,11 +48,12 @@ class SettingController extends Controller
             Setting::updateOrCreate(['key' => 'qr_code_path'], ['value' => $path]);
         }
 
-        // Save all text fields
         $textFields = [
-            'site_name', 'contact_email', 'contact_phone', 'address',
+            'site_name', 'contact_email', 'contact_phone', 'whatsapp_number', 'address',
+            'gst_number', 'gst_rate',
             'upi_id', 'bank_name', 'bank_account_name', 'bank_account_number',
             'bank_ifsc_code', 'free_shipping_threshold', 'shipping_charge',
+            'meta_description', 'meta_keywords',
         ];
 
         foreach ($textFields as $key) {

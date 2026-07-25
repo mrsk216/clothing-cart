@@ -26,6 +26,12 @@
                     @error('slug')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
 
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Short Description</label>
+                    <textarea name="short_description" rows="2" class="input-field" placeholder="Short description...">{{ old('short_description', $product->short_description) }}</textarea>
+                    @error('short_description')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
                     <textarea name="description" rows="4" class="input-field" placeholder="Product description...">{{ old('description', $product->description) }}</textarea>
@@ -75,6 +81,54 @@
                         <option value="1" {{ old('is_active', $product->is_active) == 1 ? 'selected' : '' }}>Active</option>
                         <option value="0" {{ old('is_active', $product->is_active) == 0 ? 'selected' : '' }}>Inactive</option>
                     </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
+                    <input type="number" name="weight" step="0.01" value="{{ old('weight', $product->weight) }}" class="input-field" placeholder="0.00">
+                    @error('weight')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Length (cm)</label>
+                    <input type="number" name="length" step="0.01" value="{{ old('length', $product->length) }}" class="input-field" placeholder="0.00">
+                    @error('length')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Width (cm)</label>
+                    <input type="number" name="width" step="0.01" value="{{ old('width', $product->width) }}" class="input-field" placeholder="0.00">
+                    @error('width')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Height (cm)</label>
+                    <input type="number" name="height" step="0.01" value="{{ old('height', $product->height) }}" class="input-field" placeholder="0.00">
+                    @error('height')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
+                    <input type="text" name="meta_title" value="{{ old('meta_title', $product->meta_title) }}" class="input-field" placeholder="SEO title">
+                    @error('meta_title')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
+                    <textarea name="meta_description" rows="2" class="input-field" placeholder="SEO description">{{ old('meta_description', $product->meta_description) }}</textarea>
+                    @error('meta_description')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tags (comma separated)</label>
+                    <input type="text" name="tags" value="{{ old('tags', is_array($product->tags) ? implode(', ', $product->tags) : $product->tags) }}" class="input-field" placeholder="tag1, tag2, tag3">
+                    @error('tags')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Specifications (JSON format)</label>
+                    <textarea name="specifications" rows="3" class="input-field" placeholder='{"Brand": "XYZ", "Material": "Paper"}'>{{ old('specifications', is_array($product->specifications) ? json_encode($product->specifications, JSON_PRETTY_PRINT) : $product->specifications) }}</textarea>
+                    @error('specifications')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
 
                 <div class="md:col-span-2">

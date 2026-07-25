@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Order extends Model
 {
     protected $fillable = [
-        'order_number', 'user_id', 'subtotal', 'shipping_charge', 'discount',
+        'order_number', 'invoice_number', 'user_id', 'subtotal', 'shipping_charge', 'discount',
         'tax', 'total', 'currency', 'status', 'payment_status', 'payment_method',
         'shipping_address_id', 'billing_address_id', 'notes', 'admin_notes',
         'coupon_code', 'paid_at', 'shipped_at', 'delivered_at', 'cancelled_at',
@@ -35,6 +35,20 @@ class Order extends Model
         $date = now()->format('Ymd');
         $lastOrder = self::whereDate('created_at', today())->count();
         return $prefix . $date . '-' . str_pad($lastOrder + 1, 4, '0', STR_PAD_LEFT);
+    }
+
+    public function generateInvoiceNumber(): string
+    {
+        $prefix = 'INV-';
+        $date = now()->format('Ymd');
+        $count = self::where('invoice_number', 'like', $prefix . $date . '%')->count() + 1;
+
+        return $prefix . $date . '-' . str_pad($count, 4, '0', STR_PAD_LEFT);
+    }
+
+    public function isPaid(): bool
+    {
+        return $this->payment_status === 'paid' && ! empty($this->invoice_number);
     }
 
     public function user(): BelongsTo

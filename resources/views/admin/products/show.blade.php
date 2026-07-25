@@ -53,10 +53,59 @@
                         </span>
                     </div>
                 </div>
+                @if($product->short_description)
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-500 mb-2">Short Description</p>
+                        <div class="bg-gray-50 rounded-lg p-4 text-gray-700">{{ $product->short_description }}</div>
+                    </div>
+                @endif
                 @if($product->description)
                     <div class="mt-4">
                         <p class="text-sm text-gray-500 mb-2">Description</p>
                         <div class="bg-gray-50 rounded-lg p-4 text-gray-700 whitespace-pre-wrap">{{ $product->description }}</div>
+                    </div>
+                @endif
+                @if($product->weight || $product->length || $product->width || $product->height)
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-500 mb-2">Shipping Dimensions</p>
+                        <div class="grid grid-cols-4 gap-2">
+                            @if($product->weight)<div class="bg-gray-50 rounded-lg p-3 text-center"><p class="text-xs text-gray-500">Weight</p><p class="font-medium text-primary">{{ $product->weight }} kg</p></div>@endif
+                            @if($product->length)<div class="bg-gray-50 rounded-lg p-3 text-center"><p class="text-xs text-gray-500">Length</p><p class="font-medium text-primary">{{ $product->length }} cm</p></div>@endif
+                            @if($product->width)<div class="bg-gray-50 rounded-lg p-3 text-center"><p class="text-xs text-gray-500">Width</p><p class="font-medium text-primary">{{ $product->width }} cm</p></div>@endif
+                            @if($product->height)<div class="bg-gray-50 rounded-lg p-3 text-center"><p class="text-xs text-gray-500">Height</p><p class="font-medium text-primary">{{ $product->height }} cm</p></div>@endif
+                        </div>
+                    </div>
+                @endif
+                @if($product->meta_title || $product->meta_description)
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-500 mb-2">SEO</p>
+                        <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+                            @if($product->meta_title)<p class="text-sm"><strong>Meta Title:</strong> {{ $product->meta_title }}</p>@endif
+                            @if($product->meta_description)<p class="text-sm"><strong>Meta Description:</strong> {{ $product->meta_description }}</p>@endif
+                        </div>
+                    </div>
+                @endif
+                @if($product->tags)
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-500 mb-2">Tags</p>
+                        <div class="flex flex-wrap gap-1">
+                            @foreach((array) $product->tags as $tag)
+                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">{{ $tag }}</span>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+                @if($product->specifications)
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-500 mb-2">Specifications</p>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            @foreach((array) $product->specifications as $key => $value)
+                                <div class="flex justify-between py-1 border-b border-gray-200 last:border-0">
+                                    <span class="text-sm text-gray-600">{{ $key }}</span>
+                                    <span class="text-sm font-medium text-primary">{{ $value }}</span>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 @endif
             </div>

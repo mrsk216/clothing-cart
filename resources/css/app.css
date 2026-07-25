@@ -214,6 +214,19 @@
     @apply fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 md:hidden;
 }
 
+/* Mobile sidebar scrollable on short viewports */
+@media (max-width: 1023px) {
+    [data-flux-sidebar] {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        max-height: 100dvh;
+    }
+
+    [data-flux-sidebar] > *:last-child {
+        padding-bottom: env(safe-area-inset-bottom, 1rem);
+    }
+}
+
 /* Cart badge */
 .cart-badge {
     @apply absolute -top-2 -right-2 bg-secondary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold;
@@ -230,6 +243,7 @@
 
 .admin-content {
     @apply lg:ml-64 min-h-screen bg-surface;
+    overflow-x: hidden;
 }
 
 /* Progress bar for checkout */
@@ -374,11 +388,11 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* Table */
 .data-table {
-    @apply w-full;
+    @apply w-full min-w-[600px];
 }
 
 .data-table th {
-    @apply px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider bg-gray-50;
+    @apply px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider bg-gray-50 whitespace-nowrap;
 }
 
 .data-table td {
@@ -389,9 +403,43 @@ input[type="range"]::-webkit-slider-thumb {
     @apply bg-gray-50;
 }
 
+/* Responsive table wrapper */
+.overflow-x-auto {
+    @apply -mx-4 sm:mx-0;
+}
+
+.overflow-x-auto > .data-table {
+    @apply mx-4 sm:mx-0;
+}
+
+/* Card component for admin */
+.card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden;
+}
+
+@media (max-width: 640px) {
+    .card {
+        @apply rounded-none border-x-0;
+    }
+    .data-table th,
+    .data-table td {
+        @apply px-3 py-2 text-xs;
+    }
+    .data-table td:last-child .flex {
+        @apply flex-col gap-1;
+    }
+    .data-table td:last-child .flex > * {
+        @apply w-full justify-center;
+    }
+}
+
 /* Modal */
 .modal-backdrop {
     @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center;
+}
+
+.modal-backdrop.hidden {
+    display: none !important;
 }
 
 .modal-content {

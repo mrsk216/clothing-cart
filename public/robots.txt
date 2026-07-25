@@ -1,2 +1,15 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /checkout
+Disallow: /cart
+Disallow: /orders
+Disallow: /order/
+Disallow: /payment/
+Disallow: /profile
+Disallow: /addresses
+Disallow: /wishlist
+Disallow: /livewire
+
+Sitemap: /sitemap.xml

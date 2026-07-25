@@ -95,13 +95,19 @@ class DatabaseSeeder extends Seeder
             ['key' => 'site_name', 'value' => 'SPM Enterprise'],
             ['key' => 'contact_email', 'value' => 'info@spmapp.com'],
             ['key' => 'contact_phone', 'value' => '+91-9876543210'],
+            ['key' => 'whatsapp_number', 'value' => '919876543210'],
             ['key' => 'address', 'value' => '123, Business Street, Mumbai - 400001'],
+            ['key' => 'gst_number', 'value' => '27AAAAA0000A1Z5'],
+            ['key' => 'gst_rate', 'value' => '18'],
             ['key' => 'upi_id', 'value' => 'company@upi'],
+            ['key' => 'bank_name', 'value' => 'State Bank of India'],
             ['key' => 'bank_account_name', 'value' => 'SPM Enterprises'],
             ['key' => 'bank_account_number', 'value' => '123456789012'],
             ['key' => 'bank_ifsc_code', 'value' => 'SBIN0001234'],
             ['key' => 'free_shipping_threshold', 'value' => '500'],
             ['key' => 'shipping_charge', 'value' => '50'],
+            ['key' => 'meta_description', 'value' => 'Buy paper products, stamp pads, rubber seals and screen printing materials online from SPM Enterprise.'],
+            ['key' => 'meta_keywords', 'value' => 'paper, stamp pad, rubber seal, screen printing, wholesale stationery'],
         ];
 
         foreach ($settings as $setting) {

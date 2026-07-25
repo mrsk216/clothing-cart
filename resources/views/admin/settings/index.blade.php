@@ -27,8 +27,29 @@
                         <input type="text" name="contact_phone" value="{{ $settings['contact_phone'] ?? '+91-9876543210' }}" class="input-field">
                     </div>
                     <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">WhatsApp Number</label>
+                        <input type="text" name="whatsapp_number" value="{{ $settings['whatsapp_number'] ?? ($settings['contact_phone'] ?? '+91-9876543210') }}" class="input-field" placeholder="919876543210">
+                        <p class="text-xs text-gray-500 mt-1">Used for floating WhatsApp chat widget. Include country code.</p>
+                    </div>
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
                         <input type="text" name="address" value="{{ $settings['address'] ?? '123, Business Street, Mumbai' }}" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">GSTIN</label>
+                        <input type="text" name="gst_number" value="{{ $settings['gst_number'] ?? '' }}" class="input-field" placeholder="22AAAAA0000A1Z5">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">GST Rate (%)</label>
+                        <input type="number" name="gst_rate" value="{{ $settings['gst_rate'] ?? 18 }}" class="input-field" min="0" max="28" step="0.1">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">SEO Meta Description</label>
+                        <textarea name="meta_description" rows="2" class="input-field" maxlength="300">{{ $settings['meta_description'] ?? '' }}</textarea>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">SEO Meta Keywords</label>
+                        <input type="text" name="meta_keywords" value="{{ $settings['meta_keywords'] ?? '' }}" class="input-field" placeholder="paper, stamp pad, rubber seal">
                     </div>
                 </div>
             </div>

@@ -24,20 +24,32 @@ class ProductController extends Controller
         if ($request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('description', 'like', '%' . $request->search . '%')
-                  ->orWhere('sku', 'like', '%' . $request->search . '%');
+                    ->orWhere('description', 'like', '%' . $request->search . '%')
+                    ->orWhere('sku', 'like', '%' . $request->search . '%');
             });
         }
 
-        if ($request->min_price) $query->where('price', '>=', $request->min_price);
-        if ($request->max_price) $query->where('price', '<=', $request->max_price);
+        if ($request->min_price !== null && $request->min_price !== '') {
+            $query->where('price', '>=', $request->min_price);
+        }
+        if ($request->max_price !== null && $request->max_price !== '') {
+            $query->where('price', '<=', $request->max_price);
+        }
 
         $sort = $request->sort ?? 'latest';
         switch ($sort) {
-            case 'price-low': $query->orderBy('price', 'asc'); break;
-            case 'price-high': $query->orderBy('price', 'desc'); break;
-            case 'name': $query->orderBy('name', 'asc'); break;
-            default: $query->latest(); break;
+            case 'price-low':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price-high':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'name':
+                $query->orderBy('name', 'asc');
+                break;
+            default:
+                $query->orderBy('id', 'desc');
+                break;
         }
 
         $products = $query->paginate(12)->withQueryString();
@@ -68,9 +80,12 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('q', '');
+
         $products = Product::active()
-            ->where('name', 'like', "%{$query}%")
-            ->orWhere('sku', 'like', "%{$query}%")
+            ->where(function ($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%")
+                    ->orWhere('sku', 'like', "%{$query}%");
+            })
             ->with('primaryImage')
             ->take(5)
             ->get();
@@ -80,6 +95,10 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        if (! $product->is_active) {
+            abort(404);
+        }
+
         $product->load('images', 'category', 'reviews');
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
@@ -87,6 +106,7 @@ class ProductController extends Controller
             ->with('primaryImage')
             ->take(4)
             ->get();
+
         return view('pages.product', compact('product', 'relatedProducts'));
     }
 }

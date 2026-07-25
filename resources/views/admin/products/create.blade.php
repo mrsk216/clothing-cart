@@ -25,6 +25,12 @@
                     @error('slug')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
 
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Short Description</label>
+                    <textarea name="short_description" rows="2" class="input-field" placeholder="Short description...">{{ old('short_description') }}</textarea>
+                    @error('short_description')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
                     <textarea name="description" rows="4" class="input-field" placeholder="Product description...">{{ old('description') }}</textarea>
@@ -76,11 +82,60 @@
                     </select>
                 </div>
 
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
+                    <input type="number" name="weight" step="0.01" value="{{ old('weight') }}" class="input-field" placeholder="0.00">
+                    @error('weight')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Length (cm)</label>
+                    <input type="number" name="length" step="0.01" value="{{ old('length') }}" class="input-field" placeholder="0.00">
+                    @error('length')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Width (cm)</label>
+                    <input type="number" name="width" step="0.01" value="{{ old('width') }}" class="input-field" placeholder="0.00">
+                    @error('width')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Height (cm)</label>
+                    <input type="number" name="height" step="0.01" value="{{ old('height') }}" class="input-field" placeholder="0.00">
+                    @error('height')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
+                    <input type="text" name="meta_title" value="{{ old('meta_title') }}" class="input-field" placeholder="SEO title">
+                    @error('meta_title')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
+                    <textarea name="meta_description" rows="2" class="input-field" placeholder="SEO description">{{ old('meta_description') }}</textarea>
+                    @error('meta_description')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tags (comma separated)</label>
+                    <input type="text" name="tags" value="{{ old('tags') }}" class="input-field" placeholder="tag1, tag2, tag3">
+                    @error('tags')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Specifications (JSON format)</label>
+                    <textarea name="specifications" rows="3" class="input-field" placeholder='{"Brand": "XYZ", "Material": "Paper"}'>{{ old('specifications') }}</textarea>
+                    @error('specifications')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Product Images</label>
                     <input type="file" name="images[]" multiple accept="image/*" class="input-field" id="productImages">
                     <p class="text-xs text-gray-500 mt-1">You can upload multiple images. First image will be set as primary.</p>
                 <div id="imagePreview" class="flex gap-2 mt-3 flex-wrap"></div>
+            </div>
             </div>
 
             <div class="flex gap-3 pt-4">

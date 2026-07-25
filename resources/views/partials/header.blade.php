@@ -1,6 +1,6 @@
 <header class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
     <!-- Top bar -->
-    <div class="bg-primary text-white text-xs py-1.5">
+    <div class="hidden md:block bg-primary text-white text-xs py-1.5">
         <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
             <span>📞 Call us: <a href="tel:{{ $contactPhone() }}" class="hover:text-secondary transition-colors">{{ $contactPhone() }}</a></span>
             <span class="hidden sm:block">✉️ <a href="mailto:{{ $contactEmail() }}" class="hover:text-secondary transition-colors">{{ $contactEmail() }}</a></span>
@@ -52,36 +52,38 @@
                 </a>
 
                 <!-- User Menu -->
-                @auth
-                    <div class="relative" x-data="{ open: false }">
-                        <button @click="open = !open" class="flex items-center gap-2 p-2 text-gray-600 hover:text-secondary transition-colors">
-                            <div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
-                                <span class="text-sm font-semibold text-secondary">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                <div class="hidden md:block">
+                    @auth
+                        <div class="relative" x-data="{ open: false }">
+                            <button @click="open = !open" class="flex items-center gap-2 p-2 text-gray-600 hover:text-secondary transition-colors">
+                                <div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
+                                    <span class="text-sm font-semibold text-secondary">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                                </div>
+                                <span class="hidden lg:block text-sm font-medium">{{ Auth::user()->name }}</span>
+                            </button>
+                            <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
+                                @if(Auth::user()->hasStaffAccess())
+                                    <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Admin Dashboard</a>
+                                @endif
+                                <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Dashboard</a>
+                                <a href="{{ route('orders') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Orders</a>
+                                <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Profile</a>
+                                <hr class="my-2 border-gray-100">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50">Logout</button>
+                                </form>
                             </div>
-                            <span class="hidden lg:block text-sm font-medium">{{ Auth::user()->name }}</span>
-                        </button>
-                        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
-                            @if(Auth::user()->hasStaffAccess())
-                                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Admin Dashboard</a>
-                            @endif
-                            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Dashboard</a>
-                            <a href="{{ route('orders') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Orders</a>
-                            <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Profile</a>
-                            <hr class="my-2 border-gray-100">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50">Logout</button>
-                            </form>
                         </div>
-                    </div>
-                @else
-                    <a href="{{ route('login') }}" class="btn-primary text-sm px-4 py-2">
-                        Login
-                    </a>
-                    <a href="{{ route('register') }}" class="btn-primary-dark text-sm px-4 py-2 hidden sm:inline-flex">
-                        Register
-                    </a>
-                @endauth
+                    @else
+                        <a href="{{ route('login') }}" class="btn-primary text-sm px-4 py-2">
+                            Login
+                        </a>
+                        <a href="{{ route('register') }}" class="btn-primary-dark text-sm px-4 py-2 hidden sm:inline-flex">
+                            Register
+                        </a>
+                    @endauth
+                </div>
 
                 <!-- Mobile Menu Toggle -->
                 <button class="md:hidden p-2 text-gray-600" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
@@ -170,6 +172,43 @@
                 <li><a href="{{ route('about') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg">About</a></li>
                 <li><a href="{{ route('blog') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg">Blog</a></li>
                 <li><a href="{{ route('contact') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg">Contact</a></li>
+                @auth
+                <li>
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" class="flex items-center gap-2 p-2 text-gray-600 hover:text-secondary transition-colors w-full">
+                            <div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
+                                <span class="text-sm font-semibold text-secondary">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                            </div>
+                            <span class="text-sm font-medium">{{ Auth::user()->name }}</span>
+                            <svg class="w-4 h-4 ml-auto transition-transform" :class="open && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="relative mt-1 w-full bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
+                            @if(Auth::user()->hasStaffAccess())
+                                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Admin Dashboard</a>
+                            @endif
+                            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Dashboard</a>
+                            <a href="{{ route('orders') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Orders</a>
+                            <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Profile</a>
+                            <hr class="my-2 border-gray-100">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                @else
+                    <li>
+                        <a href="{{ route('login') }}" class="btn-primary text-sm px-4 py-2">
+                            Login
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('register') }}" class="btn-primary-dark text-sm px-4 py-2 hidden sm:inline-flex">
+                            Register
+                        </a>
+                    </li>
+                @endauth
             </ul>
         </div>
     </div>

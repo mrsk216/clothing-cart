@@ -128,18 +128,48 @@
 
             <div class="card p-6">
                 <h3 class="font-semibold text-primary mb-4">Update Status</h3>
+                @if(session('error'))
+                    <div class="mb-3 p-3 bg-red-50 border border-red-200 text-red-800 rounded-lg text-sm">{{ session('error') }}</div>
+                @endif
+                @if(session('success'))
+                    <div class="mb-3 p-3 bg-green-50 border border-green-200 text-green-800 rounded-lg text-sm">{{ session('success') }}</div>
+                @endif
+                @if($order->payment_status !== 'paid')
+                    <p class="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-2 mb-3">
+                        Payment not approved yet. Processing / shipping statuses are blocked until payment is verified.
+                    </p>
+                @endif
                 <form method="POST" action="{{ route('admin.orders.status', $order->id) }}">
                     @csrf @method('PUT')
                     <select name="status" class="input-field mb-3">
+                        <option value="pending_payment_verification" {{ $order->status === 'pending_payment_verification' ? 'selected' : '' }}>Pending Payment Verification</option>
+                        <option value="pending_payment" {{ $order->status === 'pending_payment' ? 'selected' : '' }}>Pending Payment</option>
                         <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }}>Processing</option>
-                        <option value="shipped" {{ $order->status === 'shipped' ? 'selected' : '' }}>Shipped</option>
-                        <option value="delivered" {{ $order->status === 'delivered' ? 'selected' : '' }}>Delivered</option>
+                        <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }} {{ $order->payment_status !== 'paid' ? 'disabled' : '' }}>Processing</option>
+                        <option value="shipped" {{ $order->status === 'shipped' ? 'selected' : '' }} {{ $order->payment_status !== 'paid' ? 'disabled' : '' }}>Shipped</option>
+                        <option value="delivered" {{ $order->status === 'delivered' ? 'selected' : '' }} {{ $order->payment_status !== 'paid' ? 'disabled' : '' }}>Delivered</option>
                         <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                     </select>
                     <button type="submit" class="btn-primary w-full">Update Status</button>
                 </form>
             </div>
+
+            @if($order->payment && $order->payment->verificationLogs?->count())
+            <div class="card p-6">
+                <h3 class="font-semibold text-primary mb-4">Verification Logs</h3>
+                <div class="space-y-2 text-sm">
+                    @foreach($order->payment->verificationLogs as $log)
+                        <div class="p-2 bg-gray-50 rounded">
+                            <p class="font-medium capitalize">{{ $log->action }} by {{ $log->admin?->name ?? 'Admin' }}</p>
+                            <p class="text-gray-500 text-xs">{{ $log->created_at->format('d M Y, h:i A') }}</p>
+                            @if($log->rejection_reason)
+                                <p class="text-red-600">{{ $log->rejection_reason }}</p>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>

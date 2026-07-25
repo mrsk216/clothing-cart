@@ -60,6 +60,11 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function orderItems(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
     public function wishlistedBy(): HasMany
     {
         return $this->hasMany(Wishlist::class);
@@ -73,6 +78,12 @@ class Product extends Model
     public function scopeFeatured($query)
     {
         return $query->where('is_featured', true);
+    }
+
+    public function scopePopular($query)
+    {
+        return $query->withCount('orderItems')
+            ->orderBy('order_items_count', 'desc');
     }
 
     public function scopeInStock($query)

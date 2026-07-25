@@ -9,9 +9,12 @@
 </head>
 <body class="bg-gray-100">
     <div class="flex">
+        <!-- Sidebar backdrop overlay -->
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden" onclick="closeSidebar()"></div>
+
         <!-- Sidebar -->
-        <aside class="admin-sidebar" id="sidebar">
-            <div class="p-4 border-b border-white/10">
+        <aside class="admin-sidebar flex flex-col overflow-hidden" id="sidebar">
+            <div class="p-4 border-b border-white/10 flex items-center justify-between shrink-0">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2">
                     <div class="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
                         <span class="text-white font-bold">SPM</span>
@@ -20,8 +23,11 @@
                         <h2 class="font-bold text-white">Admin Panel</h2>
                     </div>
                 </a>
+                <button class="lg:hidden p-1.5 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-colors" onclick="closeSidebar()" title="Close sidebar">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
             </div>
-            <nav class="p-4 space-y-1">
+            <nav class="p-4 space-y-1 overflow-y-auto flex-1">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-white hover:bg-white/10 transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-white/10' : '' }}">
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                     <span>Dashboard</span>
@@ -58,9 +64,17 @@
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                     <span>Messages</span>
                 </a>
+                <a href="{{ route('admin.reviews') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-white hover:bg-white/10 transition-colors {{ request()->routeIs('admin.reviews*') ? 'bg-white/10' : '' }}">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                    <span>Reviews</span>
+                </a>
                 <a href="{{ route('admin.inventory') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-white hover:bg-white/10 transition-colors {{ request()->routeIs('admin.inventory*') ? 'bg-white/10' : '' }}">
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                     <span>Inventory</span>
+                </a>
+                <a href="{{ route('admin.notifications') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-white hover:bg-white/10 transition-colors {{ request()->routeIs('admin.notifications*') ? 'bg-white/10' : '' }}">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    <span>Notifications</span>
                 </a>
                 <a href="{{ route('admin.settings') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-white hover:bg-white/10 transition-colors {{ request()->routeIs('admin.settings*') ? 'bg-white/10' : '' }}">
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -73,11 +87,11 @@
         <main class="admin-content flex-1">
             <header class="bg-white shadow-sm border-b border-gray-200">
                 <div class="px-6 py-4 flex items-center justify-between">
-                    <button class="lg:hidden p-2 text-gray-600" onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')">
+                    <button class="lg:hidden p-2 text-gray-600" onclick="toggleSidebar()">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
                     <div class="ml-auto flex items-center gap-4">
-                        <a href="{{ route('home') }}" class="text-sm text-secondary hover:underline hidden sm:inline">View Site</a>
+                        <a href="{{ route('home') }}" class="text-sm text-secondary hover:underline inline">View Site</a>
                         <span class="text-sm text-gray-600">{{ auth()->user()->name }}</span>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -89,5 +103,20 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            sidebar.classList.toggle('open');
+            backdrop.classList.toggle('hidden');
+        }
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            sidebar.classList.remove('open');
+            backdrop.classList.add('hidden');
+        }
+    </script>
+    @stack('scripts')
 </body>
 </html>

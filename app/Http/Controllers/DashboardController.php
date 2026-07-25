@@ -73,7 +73,7 @@ class DashboardController extends Controller
     {
         $order = Order::where('id', $id)
             ->where('user_id', Auth::id())
-            ->with('items.product')
+            ->with(['items.product', 'payment'])
             ->firstOrFail();
 
         return view('pages.dashboard.order-detail', compact('order'));

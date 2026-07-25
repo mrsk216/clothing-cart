@@ -1,6 +1,1 @@
-1. Checkout
-2. Profile Setting
-3. Payment Verification
-4. Blog
-5. Contact form submit
-6. Setting
+2. Payment Verification

@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Address;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
@@ -17,7 +20,15 @@ class OrderController extends Controller
         if (!$cart || $cart->items->isEmpty()) {
             return redirect()->route('cart')->with('error', 'Your cart is empty!');
         }
-        return view('pages.checkout', compact('cart'));
+
+        if(!Auth::check()){
+            return redirect('login');
+        }
+
+        $customerAddress = Address::where('user_id', Auth::id())->where('is_default', true)->first();
+        $settings = Setting::all()->pluck('value', 'key')->toArray();
+
+        return view('pages.checkout', compact('cart', 'customerAddress', 'settings'));
     }
 
     public function process(Request $request)
@@ -29,21 +40,28 @@ class OrderController extends Controller
             'city' => 'required|string|max:100',
             'state' => 'required|string|max:100',
             'pincode' => 'required|string|max:10',
-            'payment_method' => 'required|in:upi',
+            'payment_method' => 'required|in:qr_code,upi,bank_transfer',
+            'utr_number' => 'required|string|unique:payments,utr_number',
+            'screenshot' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
 
         $cart = $this->getCart();
         if (!$cart || $cart->items->isEmpty()) {
             return redirect()->route('cart')->with('error', 'Your cart is empty!');
         }
+        $shippingCharge = $cart->subtotal >= 500 ? 0 : 50;
+        $total = $cart->total + $shippingCharge;
 
         $order = Order::create([
             'user_id' => Auth::id(),
-            'order_number' => 'ORD-' . strtoupper(Str::random(8)),
+            'order_number' => Order::generateOrderNumber(),
             'subtotal' => $cart->subtotal,
             'discount' => $cart->discount,
-            'total' => $cart->total + ($cart->subtotal >= 500 ? 0 : 50),
-            'status' => 'pending_payment',
+            'shipping_charge' => $shippingCharge,
+            'total' => $total,
+            'status' => 'pending_payment_verification',
+            'payment_status' => 'unpaid',
+            'payment_method' => $request->payment_method,
             'shipping_name' => $request->name,
             'shipping_phone' => $request->phone,
             'shipping_address' => $request->address,
@@ -55,20 +73,40 @@ class OrderController extends Controller
         foreach ($cart->items as $item) {
             $order->items()->create([
                 'product_id' => $item->product_id,
+                'product_name' => $item->product->name ?? 'Product',
+                'product_sku' => $item->product->sku ?? 'N/A',
                 'quantity' => $item->quantity,
                 'unit_price' => $item->unit_price,
                 'subtotal' => $item->subtotal,
             ]);
         }
 
-        $cart->items()->delete();
+        // Save payment record
+        $screenshotPath = $request->file('screenshot')->store('payments/screenshots', 'public');
 
-        return redirect()->route('checkout.success', $order);
+        $payment = Payment::create([
+            'order_id' => $order->id,
+            'utr_number' => $request->utr_number,
+            'amount' => $total,
+            'payment_method' => $request->payment_method,
+            'screenshot_path' => $screenshotPath,
+            'status' => 'pending',
+        ]);
+
+        $cart->items()->delete();
+        $cart->delete();
+
+        return redirect()->route('checkout.success', $order)->with('success', 'Order placed! Payment submitted for verification.');
     }
 
     public function success(Order $order)
     {
         return view('pages.checkout-success', compact('order'));
+    }
+
+    public function failed()
+    {
+        return redirect()->route('checkout')->with('error', 'Payment could not be processed. Please try again.');
     }
 
     public function myOrders()

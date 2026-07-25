@@ -21,7 +21,7 @@
                         <span class="text-white font-bold text-lg">SPM</span>
                     </div>
                     <div>
-                        <h3 class="font-bold">SPM Enterprise</h3>
+                        <h3 class="font-bold">{{ $siteName() }}</h3>
                         <p class="text-xs text-white/60">Paper, Stamp Pad, Rubber Seal</p>
                     </div>
                 </div>
@@ -77,19 +77,19 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
-                        <span>123, Business Street,<br>Mumbai - 400001, India</span>
+                        <span>{{ $contactAddress() }}</span>
                     </li>
                     <li class="flex items-center gap-2">
                         <svg class="w-5 h-5 shrink-0 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                         </svg>
-                        <a href="tel:+919876543210" class="hover:text-secondary transition-colors">+91-9876543210</a>
+                        <a href="tel:{{ $contactPhone() }}" class="hover:text-secondary transition-colors">{{ $contactPhone() }}</a>
                     </li>
                     <li class="flex items-center gap-2">
                         <svg class="w-5 h-5 shrink-0 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
-                        <a href="mailto:info@spmapp.com" class="hover:text-secondary transition-colors">info@spmapp.com</a>
+                        <a href="mailto:{{ $contactEmail() }}" class="hover:text-secondary transition-colors">{{ $contactEmail() }}</a>
                     </li>
                     <li class="flex items-center gap-2">
                         <svg class="w-5 h-5 shrink-0 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +105,7 @@
     <!-- Bottom Bar -->
     <div class="border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-sm text-white/60">
-            <p>&copy; {{ date('Y') }} SPM Enterprise. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} {{ $siteName() }}. All rights reserved.</p>
             <div class="flex gap-4">
                 <a href="{{ route('privacy') }}" class="hover:text-secondary transition-colors">Privacy Policy</a>
                 <a href="{{ route('shipping') }}" class="hover:text-secondary transition-colors">Shipping Policy</a>

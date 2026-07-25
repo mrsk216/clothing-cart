@@ -27,6 +27,19 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
 
+        View::share('siteName', function () {
+            return \App\Models\Setting::where('key', 'site_name')->value('value');
+        });
+        View::share('contactEmail', function () {
+            return \App\Models\Setting::where('key', 'contact_email')->value('value');
+        });
+        View::share('contactPhone', function () {
+            return \App\Models\Setting::where('key', 'contact_phone')->value('value');
+        });
+        View::share('contactAddress', function () {
+            return \App\Models\Setting::where('key', 'address')->value('value');
+        });
+
         // Share categories with header partial
         View::composer('partials.header', HeaderComposer::class);
     }

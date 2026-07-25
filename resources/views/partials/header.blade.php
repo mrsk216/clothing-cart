@@ -2,8 +2,8 @@
     <!-- Top bar -->
     <div class="bg-primary text-white text-xs py-1.5">
         <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
-            <span>📞 Call us: <a href="tel:+919876543210" class="hover:text-secondary transition-colors">+91-9876543210</a></span>
-            <span class="hidden sm:block">✉️ <a href="mailto:info@spmapp.com" class="hover:text-secondary transition-colors">info@spmapp.com</a></span>
+            <span>📞 Call us: <a href="tel:{{ $contactPhone() }}" class="hover:text-secondary transition-colors">{{ $contactPhone() }}</a></span>
+            <span class="hidden sm:block">✉️ <a href="mailto:{{ $contactEmail() }}" class="hover:text-secondary transition-colors">{{ $contactEmail() }}</a></span>
         </div>
     </div>
 
@@ -16,7 +16,7 @@
                     <span class="text-white font-bold">SPM</span>
                 </div>
                 <div class="hidden sm:block">
-                    <h1 class="text-lg font-bold text-primary leading-tight">SPM Enterprise</h1>
+                    <h1 class="text-lg font-bold text-primary leading-tight">{{ $siteName() }}</h1>
                     <p class="text-xs text-gray-500">Paper, Stamp Pad, Rubber Seal</p>
                 </div>
             </a>

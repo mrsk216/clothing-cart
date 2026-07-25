@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="@yield('meta_description', config('app.name', 'SPM App'))">
-    <title>@yield('title', __('Login')) – {{ config('app.name', 'SPM Enterprise') }}</title>
+    <title>@yield('title', __('Login')) – {{ $siteName() }}</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -29,7 +29,7 @@
                         <span class="text-white font-bold text-lg">SPM</span>
                     </div>
                     <div class="text-left hidden sm:block">
-                        <h1 class="text-xl font-bold text-primary leading-tight">SPM Enterprise</h1>
+                        <h1 class="text-xl font-bold text-primary leading-tight">{{ $siteName() }}</h1>
                         <p class="text-xs text-gray-500">Paper, Stamp Pad, Rubber Seal</p>
                     </div>
                 </a>
@@ -44,7 +44,7 @@
     <!-- Simple Footer -->
     <footer class="bg-primary text-white py-6">
         <div class="max-w-7xl mx-auto px-4 text-center text-sm text-white/60">
-            &copy; {{ date('Y') }} SPM Enterprise. All rights reserved.
+            &copy; {{ date('Y') }} {{ $siteName() }}. All rights reserved.
         </div>
     </footer>
 

@@ -16,6 +16,7 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 // Static Pages
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::post('/contact', [PageController::class, 'sendContact'])->name('contact.send');
 Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/shipping-policy', [PageController::class, 'shipping'])->name('shipping');
 Route::get('/return-policy', [PageController::class, 'returns'])->name('returns');
@@ -47,11 +48,16 @@ Route::post('/track-order', [OrderController::class, 'trackOrder'])->name('track
 
 // Wishlist
 Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
-Route::get('/wishlist/{id}', [WishlistController::class, 'dedestroystroy'])->name('wishlist.delete');
+Route::get('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.delete');
 
 // Blog
 Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
+
+// Blog Comments (authenticated customers)
+Route::middleware(['auth'])->group(function () {
+    Route::post('/blog/{post}/comment', [App\Http\Controllers\BlogCommentController::class, 'store'])->name('blog.comment.store');
+});
 
 // Auth Routes (Fortify)
 Route::middleware(['auth'])->group(function () {
@@ -59,10 +65,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/orders', [DashboardController::class, 'orders'])->name('orders');
     Route::get('/order/{id}', [DashboardController::class, 'orderDetail'])->name('order.detail');
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+    Route::put('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile/password', [DashboardController::class, 'updatePassword'])->name('profile.password');
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
     Route::get('/addresses', [DashboardController::class, 'addresses'])->name('addresses');
     Route::get('/download-invoice/{order}', [OrderController::class, 'downloadInvoice'])->name('invoice.download');
-    Route::post('/payment/submit', [PaymentController::class, 'submit'])->name('payment.submit');
+    Route::get('/payment/submit/{order}', [PaymentController::class, 'showForm'])->name('payment.form');
+    Route::post('/payment/submit/{order}', [PaymentController::class, 'submit'])->name('payment.submit');
     Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
     Route::put('/addresses/{address}', [AddressController::class, 'update'])->name('addresses.update');
     Route::delete('/addresses/{address}', [AddressController::class, 'destroy'])->name('addresses.destroy');
@@ -96,15 +105,24 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('/coupons/{coupon}', [App\Http\Controllers\Admin\CouponController::class, 'update'])->name('coupons.update');
     Route::delete('/coupons/{coupon}', [App\Http\Controllers\Admin\CouponController::class, 'destroy'])->name('coupons.destroy');
     Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings');
-    Route::post('/settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
+    Route::put('/settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
     Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports');
     Route::get('/reports/{type}', [App\Http\Controllers\Admin\ReportController::class, 'export'])->name('reports.export');
     Route::get('/blog', [App\Http\Controllers\Admin\BlogController::class, 'index'])->name('blog');
     Route::get('/blog/create', [App\Http\Controllers\Admin\BlogController::class, 'create'])->name('blog.create');
     Route::post('/blog', [App\Http\Controllers\Admin\BlogController::class, 'store'])->name('blog.store');
-    Route::get('/blog/{blog}/edit', [App\Http\Controllers\Admin\BlogController::class, 'edit'])->name('blog.edit');
+    Route::get('/blog/{post}/edit', [App\Http\Controllers\Admin\BlogController::class, 'edit'])->name('blog.edit');
     Route::put('/blog/{post}', [App\Http\Controllers\Admin\BlogController::class, 'update'])->name('blog.update');
     Route::delete('/blog/{post}', [App\Http\Controllers\Admin\BlogController::class, 'destroy'])->name('blog.destroy');
+    Route::get('/blog/categories', [App\Http\Controllers\Admin\BlogCategoryController::class, 'index'])->name('blog.categories');
+    Route::get('/blog/categories/create', [App\Http\Controllers\Admin\BlogCategoryController::class, 'create'])->name('blog.categories.create');
+    Route::post('/blog/categories', [App\Http\Controllers\Admin\BlogCategoryController::class, 'store'])->name('blog.categories.store');
+    Route::get('/blog/categories/{category}/edit', [App\Http\Controllers\Admin\BlogCategoryController::class, 'edit'])->name('blog.categories.edit');
+    Route::put('/blog/categories/{category}', [App\Http\Controllers\Admin\BlogCategoryController::class, 'update'])->name('blog.categories.update');
+    Route::delete('/blog/categories/{category}', [App\Http\Controllers\Admin\BlogCategoryController::class, 'destroy'])->name('blog.categories.destroy');
+    Route::get('/blog/comments', [App\Http\Controllers\Admin\BlogCommentController::class, 'index'])->name('blog.comments');
+    Route::post('/blog/comments/{comment}/approve', [App\Http\Controllers\Admin\BlogCommentController::class, 'approve'])->name('blog.comments.approve');
+    Route::delete('/blog/comments/{comment}', [App\Http\Controllers\Admin\BlogCommentController::class, 'destroy'])->name('blog.comments.destroy');
     Route::get('/messages', [App\Http\Controllers\Admin\MessageController::class, 'index'])->name('messages');
     Route::get('/messages/{message}', [App\Http\Controllers\Admin\MessageController::class, 'show'])->name('messages.show');
     Route::post('/messages/{message}/reply', [App\Http\Controllers\Admin\MessageController::class, 'reply'])->name('messages.reply');

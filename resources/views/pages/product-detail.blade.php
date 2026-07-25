@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-@section('title', $product->name . ' - SPM Enterprise')
+@section('title', $product->name . ' - ' . $siteName())
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-8">
@@ -118,12 +118,32 @@
 
 @push('scripts')
 <script>
-function updateQty(delta) {
-    const input = document.getElementById('qty');
-    let val = parseInt(input.value) + delta;
-    if (val < 1) val = 1;
-    if (val > 100) val = 100;
-    input.value = val;
-}
+    function updateQty(delta) {
+        const input = document.getElementById('qty');
+        let val = parseInt(input.value) + delta;
+        if (val < 1) val = 1;
+        if (val > 100) val = 100;
+        input.value = val;
+    }
+
+    function addToWishlist(productId) {
+        fetch('/wishlist/toggle', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ product_id: productId })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                showToast(data.message || 'Wishlist updated!', 'success');
+            } else {
+                showToast(data.message || 'Please login to add to wishlist', 'warning');
+            }
+        })
+        .catch(() => showToast('Something went wrong', 'error'));
+    }
 </script>
 @endpush

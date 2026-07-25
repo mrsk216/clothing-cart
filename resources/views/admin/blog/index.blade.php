@@ -6,7 +6,11 @@
 <div class="p-6">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-bold text-primary">Blog Posts</h1>
-        <a href="{{ route('admin.blog.create') }}" class="btn-primary">Add Post</a>
+        <div class="flex gap-2">
+            <a href="{{ route('admin.blog.categories') }}" class="btn-outline">Categories</a>
+            <a href="{{ route('admin.blog.comments') }}" class="btn-outline">Comments</a>
+            <a href="{{ route('admin.blog.create') }}" class="btn-primary">Add Post</a>
+        </div>
     </div>
 
     <div class="card p-6">
@@ -16,23 +20,38 @@
                     <tr>
                         <th>Title</th>
                         <th>Category</th>
+                        <th>Author</th>
                         <th>Status</th>
-                        <th>Date</th>
+                        <th>Published</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($posts as $post)
                         <tr>
-                            <td>{{ $post->title }}</td>
-                            <td>{{ $post->category?->name ?? 'N/A' }}</td>
                             <td>
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                    {{ $post->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
-                                    {{ ucfirst($post->status) }}
-                                </span>
+                                <div class="flex items-center gap-3">
+                                    @if($post->featured_image)
+                                        <img src="{{ asset('storage/' . $post->featured_image) }}" alt="" class="w-10 h-10 rounded object-cover">
+                                    @endif
+                                    <div>
+                                        <p class="font-medium text-sm">{{ $post->title }}</p>
+                                        @if($post->excerpt)
+                                            <p class="text-xs text-gray-400 line-clamp-1">{{ Str::limit($post->excerpt, 60) }}</p>
+                                        @endif
+                                    </div>
+                                </div>
                             </td>
-                            <td>{{ $post->created_at->format('d M Y') }}</td>
+                            <td>{{ $post->category?->name ?? 'N/A' }}</td>
+                            <td class="text-sm">{{ $post->author?->name ?? 'N/A' }}</td>
+                            <td>
+                                @if($post->is_published)
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Published</span>
+                                @else
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Draft</span>
+                                @endif
+                            </td>
+                            <td class="text-sm text-gray-500">{{ $post->published_at?->format('d M Y') ?? $post->created_at->format('d M Y') }}</td>
                             <td>
                                 <div class="flex items-center gap-1.5">
                                     <a href="{{ route('admin.blog.edit', $post->id) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-xs font-medium shadow-sm" title="Edit">
@@ -50,11 +69,12 @@
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="5" class="text-center text-gray-400 py-8">No posts found.</td></tr>
+                        <tr><td colspan="6" class="text-center text-gray-400 py-8">No posts found.</td></tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
+        <div class="mt-4">{{ $posts->links() }}</div>
     </div>
 </div>
 @endsection

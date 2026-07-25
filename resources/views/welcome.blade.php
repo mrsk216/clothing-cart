@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-@section('title', 'SPM Enterprise - Paper, Stamp Pad, Rubber Seal & Screen Printing Materials')
+@section('title', $siteName() . ' - Paper, Stamp Pad, Rubber Seal & Screen Printing Materials')
 
 @section('meta_description', 'Your trusted source for premium paper products, stamp pads, rubber seals, and screen printing materials. Quality products with fast delivery across India.')
 
@@ -15,7 +15,7 @@
             <div class="relative max-w-7xl mx-auto px-4 py-20">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="animate-fade-in">
-                        <span class="inline-block bg-secondary/20 text-secondary px-4 py-1 rounded-full text-sm font-medium mb-4">Welcome to SPM Enterprise</span>
+                        <span class="inline-block bg-secondary/20 text-secondary px-4 py-1 rounded-full text-sm font-medium mb-4">Welcome to {{ $siteName() }}</span>
                         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                             Your Trusted Partner for
                             <span class="text-secondary">Premium Printing</span> & Stationery Products

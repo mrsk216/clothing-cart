@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
@@ -29,9 +31,35 @@ class DashboardController extends Controller
         return view('pages.dashboard.profile');
     }
 
+    public function updateProfile(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+        ]);
+
+        auth()->user()->update($validated);
+
+        return redirect()->route('profile')->with('success', 'Profile updated successfully!');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'current_password' => 'required|current_password',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        auth()->user()->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect()->route('profile')->with('success', 'Password changed successfully!');
+    }
+
     public function addresses()
     {
-        $addresses = Auth::user()->addresses ?? [];
+        $addresses = Auth::user()->addresses ?? collect();
         return view('pages.dashboard.addresses', compact('addresses'));
     }
 

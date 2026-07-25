@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-@section('title', 'Blog - SPM Enterprise')
+@section('title', 'Blog - ' . $siteName())
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-8">
@@ -15,9 +15,13 @@
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($posts as $post)
             <div class="card overflow-hidden">
-                <div class="aspect-video bg-gradient-to-br from-secondary/10 to-primary/10 flex items-center justify-center">
-                    <span class="text-4xl">📝</span>
-                </div>
+                @if ($post->featured_image != null)
+                    <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-56 object-cover">
+                @else
+                    <div class="aspect-video bg-gradient-to-br from-secondary/10 to-primary/10 flex items-center justify-center">
+                        <span class="text-4xl">📝</span>
+                    </div>                    
+                @endif
                 <div class="p-4">
                     <span class="text-xs text-secondary font-medium">{{ $post->category?->name ?? 'General' }}</span>
                     <a href="{{ route('blog.show', $post->slug) }}">

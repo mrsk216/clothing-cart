@@ -7,7 +7,7 @@
     <h1 class="text-2xl font-bold text-primary mb-6">Settings</h1>
 
     <div class="card p-6">
-        <form method="POST" action="{{ route('admin.settings.update') }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.settings.update') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')
 
@@ -36,9 +36,23 @@
             <div>
                 <h3 class="font-semibold text-primary mb-4">Payment Settings</h3>
                 <div class="grid md:grid-cols-2 gap-4">
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Company QR Code</label>
+                        @if(!empty($settings['qr_code_path']))
+                            <div class="mb-2">
+                                <img src="{{ asset('storage/' . $settings['qr_code_path']) }}" alt="QR Code" class="w-32 h-32 object-contain border rounded">
+                                <p class="text-xs text-gray-500 mt-1">Current QR code. Upload a new one to replace.</p>
+                            </div>
+                        @endif
+                        <input type="file" name="qr_code" accept="image/*" class="input-field">
+                    </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">UPI ID</label>
                         <input type="text" name="upi_id" value="{{ $settings['upi_id'] ?? 'company@upi' }}" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Bank Name</label>
+                        <input type="text" name="bank_name" value="{{ $settings['bank_name'] ?? 'State Bank of India' }}" class="input-field">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Bank Account Name</label>

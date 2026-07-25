@@ -50,10 +50,10 @@
                                 </div>
                                 <div>
                                     <p class="font-medium text-primary">{{ $item->product->name ?? 'Product' }}</p>
-                                    <p class="text-sm text-gray-500">Qty: {{ $item->quantity }} × ₹{{ number_format($item->price, 2) }}</p>
+                                    <p class="text-sm text-gray-500">Qty: {{ $item->quantity }} × ₹{{ number_format($item->unit_price, 2) }}</p>
                                 </div>
                             </div>
-                            <p class="font-medium text-primary">₹{{ number_format($item->quantity * $item->price, 2) }}</p>
+                            <p class="font-medium text-primary">₹{{ number_format($item->subtotal, 2) }}</p>
                         </div>
                     @endforeach
                 </div>
@@ -84,6 +84,47 @@
                 <h3 class="font-semibold text-primary mb-4">Shipping Address</h3>
                 <p class="text-sm text-gray-700">{{ $order->shipping_address ?? 'N/A' }}</p>
             </div>
+
+            @if($order->payment)
+            <div class="card p-6">
+                <h3 class="font-semibold text-primary mb-4">Payment Information</h3>
+                <div class="space-y-2 text-sm">
+                    <div>
+                        <p class="text-gray-500">UTR Number</p>
+                        <p class="font-medium font-mono">{{ $order->payment->utr_number ?? 'N/A' }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500">Amount</p>
+                        <p class="font-medium">₹{{ number_format($order->payment->amount, 2) }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500">Method</p>
+                        <p class="font-medium capitalize">{{ str_replace('_', ' ', $order->payment->payment_method ?? 'N/A') }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500">Status</p>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                            {{ $order->payment->status === 'approved' ? 'bg-green-100 text-green-800' : '' }}
+                            {{ $order->payment->status === 'rejected' ? 'bg-red-100 text-red-800' : '' }}
+                            {{ $order->payment->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}">
+                            {{ ucfirst($order->payment->status) }}
+                        </span>
+                    </div>
+                    @if($order->payment->screenshot_path)
+                        <div>
+                            <p class="text-gray-500">Screenshot</p>
+                            <a href="{{ asset('storage/' . $order->payment->screenshot_path) }}" target="_blank" class="text-secondary hover:underline">View Payment Proof</a>
+                        </div>
+                    @endif
+                    @if($order->payment->rejection_reason)
+                        <div>
+                            <p class="text-gray-500">Rejection Reason</p>
+                            <p class="text-red-600">{{ $order->payment->rejection_reason }}</p>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            @endif
 
             <div class="card p-6">
                 <h3 class="font-semibold text-primary mb-4">Update Status</h3>

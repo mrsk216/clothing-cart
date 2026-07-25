@@ -11,10 +11,17 @@ trait RedirectsToCurrentTeam
     protected function redirectPathForCurrentTeam(Request $request, string $redirect): string
     {
         $team = $this->currentTeam($request);
+        $user = $request->user();
 
         URL::defaults(['current_team' => $team->slug]);
 
-        return "/{$team->slug}{$redirect}";
+        // If user is admin/staff, redirect to admin dashboard
+        if ($user && $user->hasStaffAccess()) {
+            return '/admin/dashboard';
+        }
+
+        // Default redirect for customers
+        return "{$redirect}";
     }
 
     protected function currentTeam(Request $request): Team

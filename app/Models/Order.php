@@ -12,7 +12,9 @@ class Order extends Model
         'order_number', 'user_id', 'subtotal', 'shipping_charge', 'discount',
         'tax', 'total', 'currency', 'status', 'payment_status', 'payment_method',
         'shipping_address_id', 'billing_address_id', 'notes', 'admin_notes',
-        'coupon_code', 'paid_at', 'shipped_at', 'delivered_at', 'cancelled_at'
+        'coupon_code', 'paid_at', 'shipped_at', 'delivered_at', 'cancelled_at',
+        'shipping_name', 'shipping_phone', 'shipping_address', 'shipping_city',
+        'shipping_state', 'shipping_pincode'
     ];
 
     protected $casts = [

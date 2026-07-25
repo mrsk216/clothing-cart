@@ -10,7 +10,7 @@
     </div>
 
     <div class="card p-6">
-        <form method="POST" action="{{ route('admin.blog.update', $post->id) }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.blog.update', $post->id) }}" class="space-y-6" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="grid md:grid-cols-2 gap-6">
@@ -28,30 +28,75 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                    <select name="category_id" class="input-field">
+                    <select name="blog_category_id" class="input-field">
                         <option value="">Select Category</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>
+                            <option value="{{ $category->id }}" {{ old('blog_category_id', $post->blog_category_id) == $category->id ? 'selected' : '' }}>
                                 {{ $category->name }}
                             </option>
                         @endforeach
                     </select>
-                    @error('category_id')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                    @error('blog_category_id')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Status *</label>
-                    <select name="status" class="input-field">
-                        <option value="draft" {{ old('status', $post->status) == 'draft' ? 'selected' : '' }}>Draft</option>
-                        <option value="published" {{ old('status', $post->status) == 'published' ? 'selected' : '' }}>Published</option>
-                    </select>
-                    @error('status')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                    <label class="inline-flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" name="is_published" value="1" {{ old('is_published', $post->is_published) ? 'checked' : '' }} class="rounded border-gray-300 text-secondary focus:ring-secondary">
+                        <span class="text-sm text-gray-600">Published</span>
+                    </label>
+                    @error('is_published')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Publish Date</label>
+                    <input type="datetime-local" name="published_at" value="{{ old('published_at', $post->published_at?->format('Y-m-d\TH:i')) }}" class="input-field">
+                    @error('published_at')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
+                    <textarea name="excerpt" rows="3" class="input-field" placeholder="Brief summary of the post...">{{ old('excerpt', $post->excerpt) }}</textarea>
+                    @error('excerpt')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
 
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Content *</label>
-                    <textarea name="content" rows="10" class="input-field" placeholder="Write your blog post content here...">{{ old('content', $post->content) }}</textarea>
+                    <textarea name="content" rows="12" class="input-field" placeholder="Write your blog post content here...">{{ old('content', $post->content) }}</textarea>
                     @error('content')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
+                    @if($post->featured_image)
+                        <div class="mb-2">
+                            <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="h-32 w-auto rounded-lg object-cover">
+                        </div>
+                    @endif
+                    <input type="file" name="featured_image" accept="image/*" class="input-field">
+                    @error('featured_image')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tags (comma separated)</label>
+                    <input type="text" name="tags" value="{{ old('tags', $post->blogTags->pluck('name')->implode(', ')) }}" class="input-field" placeholder="e.g. printing, t-shirts, custom design">
+                    @error('tags')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="md:col-span-2 border-t pt-4">
+                    <h3 class="text-sm font-medium text-gray-700 mb-3">SEO Settings</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
+                            <input type="text" name="meta_title" value="{{ old('meta_title', $post->meta_title) }}" class="input-field" placeholder="SEO title">
+                            @error('meta_title')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
+                            <textarea name="meta_description" rows="2" class="input-field" placeholder="SEO description">{{ old('meta_description', $post->meta_description) }}</textarea>
+                            @error('meta_description')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                        </div>
+                    </div>
                 </div>
             </div>
 

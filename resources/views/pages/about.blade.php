@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-@section('title', 'About Us - SPM Enterprise')
+@section('title', 'About Us - ' . $siteName())
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-8">
@@ -11,14 +11,14 @@
     </div>
 
     <div class="bg-gradient-to-r from-primary to-primary-light text-white rounded-2xl p-8 md:p-12 mb-12">
-        <h1 class="text-3xl md:text-4xl font-bold mb-4">About SPM Enterprise</h1>
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">About {{ $siteName() }}</h1>
         <p class="text-white/80 text-lg max-w-3xl">Your trusted partner for premium paper products, stamp pads, rubber seals, and screen printing materials since 2010.</p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-12 mb-12">
         <div>
             <h2 class="text-2xl font-bold text-primary mb-4">Our Story</h2>
-            <p class="text-gray-600 mb-4">SPM Enterprise was founded with a vision to provide high-quality printing and stationery products to businesses across India. Over the past 15+ years, we have grown from a small local supplier to a trusted name in the industry.</p>
+            <p class="text-gray-600 mb-4">{{ $siteName() }} was founded with a vision to provide high-quality printing and stationery products to businesses across India. Over the past 15+ years, we have grown from a small local supplier to a trusted name in the industry.</p>
             <p class="text-gray-600">We specialize in paper products, stamp pads, rubber seals, and screen printing materials, serving thousands of satisfied customers including printing shops, offices, and businesses.</p>
         </div>
         <div>

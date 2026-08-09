@@ -10,7 +10,7 @@
         <span class="current">Shopping Cart</span>
     </div>
 
-    <h1 class="text-2xl font-bold text-primary mb-6">Shopping Cart</h1>
+    <h1 class="text-2xl font-serif font-bold text-primary mb-6">Shopping Cart</h1>
 
     @if($cart && $cart->items->count() > 0)
         <div class="grid lg:grid-cols-3 gap-8">
@@ -19,7 +19,7 @@
                     <div class="card p-4">
                         <div class="flex gap-4">
                             <div class="w-24 h-24 bg-gray-50 rounded-lg flex items-center justify-center shrink-0">
-                                <span class="text-3xl">📦</span>
+                                <span class="text-3xl">👕</span>
                             </div>
                             <div class="flex-1">
                                 <h3 class="font-semibold text-primary mb-1">{{ $item->product->name }}</h3>
@@ -46,7 +46,7 @@
 
             <div class="lg:col-span-1">
                 <div class="card p-6">
-                    <h3 class="font-semibold text-primary mb-4">Cart Summary</h3>
+                    <h3 class="font-serif font-semibold text-primary mb-4">Cart Summary</h3>
                     <div class="space-y-2 mb-4">
                         <div class="flex justify-between text-sm">
                             <span class="text-gray-600">Subtotal</span>
@@ -84,7 +84,7 @@
         <div class="text-center py-16">
             <span class="text-5xl mb-4 block">🛒</span>
             <h3 class="text-xl font-semibold text-primary mb-2">Your cart is empty</h3>
-            <p class="text-gray-500 mb-6">Looks like you haven't added any products yet</p>
+            <p class="text-gray-500 mb-6">Looks like you haven't added any fashion items yet</p>
             <a href="{{ route('shop') }}" class="btn-primary">Start Shopping</a>
         </div>
     @endif

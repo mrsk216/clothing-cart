@@ -1,0 +1,38 @@
+Template Name: Clothing Cart - Fashion & Clothing E-Commerce Platform
+Slug: clothing-cart-fashion-clothing-ecommerce
+Category: E-Commerce
+Short Description: Clothing Cart is a vibrant, colorful & animated fashion e-commerce platform built with Laravel 12, Tailwind CSS 4, and Alpine.js. Modern design, complete shopping experience, and powerful admin panel.
+Long Description: Clothing Cart is a modern, colorful, and fully-animated fashion & clothing e-commerce platform designed to help you launch your online fashion store quickly and professionally. Built with Laravel 12, Tailwind CSS 4, and Alpine.js, this template features a vibrant purple, pink, and amber color palette with stunning gradient effects, floating animations, pulse glow effects, and smooth transitions throughout the entire interface.
+
+FEATURES:
+- Vibrant colorful modern UI with gradient effects
+- Highly animated interface with floating elements and glow effects
+- Complete product catalog with categories and advanced filtering
+- Real-time product search with suggestions
+- Product detail pages with image gallery, reviews, and related products
+- Shopping cart with quantity controls and coupon system
+- Wishlist functionality
+- Multi-payment methods (QR Code, UPI, Bank Transfer)
+- Order tracking with timeline
+- Customer reviews and ratings
+- Fashion blog with comments
+- Bulk order enquiry for wholesale pricing
+- Newsletter subscription
+- Full admin panel with dashboard, product, order, user, coupon, blog, inventory, and report management
+- Payment verification system
+- Role-based access control (Admin, Staff, Customer)
+- Laravel Fortify authentication with Passkey support
+- Fully responsive and mobile-friendly design
+- SEO optimized with meta tags and structured data
+- Clean, well-documented code
+
+TECHNICAL DETAILS:
+- Backend: Laravel 12, PHP 8.2+
+- Frontend: Tailwind CSS 4, Alpine.js, Swiper.js
+- Database: MySQL / SQLite / PostgreSQL
+- Authentication: Laravel Fortify with Passkey support
+- Build Tool: Vite
+
+Languages: PHP, HTML, CSS, JavaScript, Blade
+Frameworks: Laravel 12, Tailwind CSS 4, Alpine.js, Swiper.js
+Tags: fashion, clothing, ecommerce, laravel, online store, shopping, apparel, accessories, footwear, responsive, admin panel, tailwind, php, e-commerce, fashion store, clothing store, laravel ecommerce, colorful, animated, modern

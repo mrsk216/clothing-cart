@@ -6,10 +6,10 @@
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <?php
         $defaultDesc = \App\Models\Setting::where('key', 'meta_description')->value('value')
-            ?: 'Buy paper products, stamp pads, rubber seals and screen printing materials online. Fast delivery across India.';
+            ?: 'Shop premium fashion and clothing online. Discover the latest trends in apparel, accessories, and footwear.';
         $defaultKeywords = \App\Models\Setting::where('key', 'meta_keywords')->value('value')
-            ?: 'paper, stamp pad, rubber seal, screen printing, wholesale stationery';
-        $pageTitle = trim($__env->yieldContent('title', config('app.name', 'SPM Enterprise')));
+            ?: 'fashion, clothing, apparel, mens fashion, womens fashion, kids fashion, accessories, footwear';
+        $pageTitle = trim($__env->yieldContent('title', config('app.name', 'Clothing Cart')));
         $pageDesc = trim($__env->yieldContent('meta_description', $defaultDesc));
         $canonical = trim($__env->yieldContent('canonical', url()->current()));
     ?>
@@ -19,7 +19,7 @@
     <link rel="canonical" href="<?php echo e($canonical); ?>">
 
     <meta property="og:type" content="<?php echo $__env->yieldContent('og_type', 'website'); ?>">
-    <meta property="og:site_name" content="<?php echo e(config('app.name', 'SPM Enterprise')); ?>">
+    <meta property="og:site_name" content="<?php echo e(config('app.name', 'Clothing Cart')); ?>">
     <meta property="og:title" content="<?php echo e($pageTitle); ?>">
     <meta property="og:description" content="<?php echo e($pageDesc); ?>">
     <meta property="og:url" content="<?php echo e($canonical); ?>">
@@ -36,6 +36,10 @@
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <?php echo app('Illuminate\Foundation\Vite')->fonts(); ?>
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>

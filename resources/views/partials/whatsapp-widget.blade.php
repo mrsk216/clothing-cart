@@ -6,7 +6,7 @@
     if (strlen($waDigits) === 10) {
         $waDigits = '91' . $waDigits;
     }
-    $site = \App\Models\Setting::where('key', 'site_name')->value('value') ?: 'SPM Enterprise';
+    $site = \App\Models\Setting::where('key', 'site_name')->value('value') ?: 'Clothing Cart';
 @endphp
 @if($waDigits)
 <div class="whatsapp-widget">

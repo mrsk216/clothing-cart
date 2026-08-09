@@ -24,7 +24,7 @@
     <table class="header-line section">
         <tr>
             <td width="60%">
-                <p class="title">{{ $settings['site_name'] ?? 'SPM Enterprise' }}</p>
+                <p class="title">{{ $settings['site_name'] ?? 'Clothing Cart' }}</p>
                 <p class="muted">
                     {{ $settings['address'] ?? '' }}<br>
                     Phone: {{ $settings['contact_phone'] ?? '' }}<br>

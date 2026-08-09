@@ -16,11 +16,11 @@
                 <div class="grid md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Site Name</label>
-                        <input type="text" name="site_name" value="{{ $settings['site_name'] ?? 'SPM Enterprise' }}" class="input-field">
+                        <input type="text" name="site_name" value="{{ $settings['site_name'] ?? 'Clothing Cart' }}" class="input-field">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Contact Email</label>
-                        <input type="email" name="contact_email" value="{{ $settings['contact_email'] ?? 'info@spmapp.com' }}" class="input-field">
+                        <input type="email" name="contact_email" value="{{ $settings['contact_email'] ?? 'info@clothingcart.com' }}" class="input-field">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Contact Phone</label>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-1">SEO Meta Keywords</label>
-                        <input type="text" name="meta_keywords" value="{{ $settings['meta_keywords'] ?? '' }}" class="input-field" placeholder="paper, stamp pad, rubber seal">
+                        <input type="text" name="meta_keywords" value="{{ $settings['meta_keywords'] ?? '' }}" class="input-field" placeholder="fashion, clothing, apparel, accessories">
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Bank Account Name</label>
-                        <input type="text" name="bank_account_name" value="{{ $settings['bank_account_name'] ?? 'SPM Enterprises' }}" class="input-field">
+                        <input type="text" name="bank_account_name" value="{{ $settings['bank_account_name'] ?? 'Clothing Cart' }}" class="input-field">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Bank Account Number</label>

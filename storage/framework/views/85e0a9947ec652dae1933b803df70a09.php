@@ -16,8 +16,8 @@
         <aside class="admin-sidebar flex flex-col overflow-hidden" id="sidebar">
             <div class="p-4 border-b border-white/10 flex items-center justify-between shrink-0">
                 <a href="<?php echo e(route('admin.dashboard')); ?>" class="flex items-center gap-2">
-                    <div class="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold">SPM</span>
+                    <div class="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center shadow-lg">
+                        <span class="text-white font-serif font-bold">CC</span>
                     </div>
                     <div>
                         <h2 class="font-bold text-white">Admin Panel</h2>

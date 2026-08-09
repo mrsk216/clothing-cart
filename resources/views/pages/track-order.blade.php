@@ -10,7 +10,7 @@
         <span class="current">Track Order</span>
     </div>
 
-    <h1 class="text-2xl font-bold text-primary mb-6">Track Your Order</h1>
+    <h1 class="text-2xl font-serif font-bold text-primary mb-6">Track Your Order</h1>
 
     <div class="card p-6 mb-8">
         <form method="POST" action="{{ route('track.order.search') }}" class="flex gap-3">

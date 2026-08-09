@@ -106,7 +106,7 @@ class ProductController extends Controller
             'meta_description' => 'nullable|string|max:500',
             'tags' => 'nullable|string',
             'specifications' => 'nullable|string',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $data = $request->all();

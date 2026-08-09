@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // Create Admin User
         User::updateOrCreate(
-            ['email' => 'admin@spmapp.com'],
+            ['email' => 'admin@clothingcart.com'],
             [
                 'name' => 'Admin User',
                 'password' => Hash::make('Admin@123'),
@@ -29,10 +29,11 @@ class DatabaseSeeder extends Seeder
 
         // Create Categories
         $categories = [
-            ['name' => 'Paper Products', 'slug' => 'paper-products', 'description' => 'A4, A3, Specialty papers'],
-            ['name' => 'Stamp Pads', 'slug' => 'stamp-pads', 'description' => 'Regular, Self-inking, Date stamps'],
-            ['name' => 'Rubber Seals', 'slug' => 'rubber-seals', 'description' => 'Custom rubber stamps'],
-            ['name' => 'Screen Printing', 'slug' => 'screen-printing-materials', 'description' => 'Inks, emulsions, squeegees'],
+            ['name' => "Men's Fashion", 'slug' => 'mens-fashion', 'description' => 'Shirts, T-shirts, Jeans, Formal wear'],
+            ['name' => "Women's Fashion", 'slug' => 'womens-fashion', 'description' => 'Dresses, Kurtis, Tops, Ethnic wear'],
+            ['name' => "Kids' Fashion", 'slug' => 'kids-fashion', 'description' => 'Kids clothing, School wear, Party wear'],
+            ['name' => 'Accessories', 'slug' => 'accessories', 'description' => 'Bags, Watches, Belts, Sunglasses'],
+            ['name' => 'Footwear', 'slug' => 'footwear', 'description' => 'Sneakers, Sandals, Formal shoes'],
         ];
 
         foreach ($categories as $category) {
@@ -41,14 +42,14 @@ class DatabaseSeeder extends Seeder
 
         // Create Products
         $products = [
-            ['name' => 'A4 Paper 500 Sheets', 'slug' => 'a4-paper-500-sheets', 'price' => 250, 'compare_price' => 300, 'stock_quantity' => 100, 'category_id' => 1, 'sku' => 'PAP-001'],
-            ['name' => 'A3 Paper 250 Sheets', 'slug' => 'a3-paper-250-sheets', 'price' => 450, 'compare_price' => 550, 'stock_quantity' => 50, 'category_id' => 1, 'sku' => 'PAP-002'],
-            ['name' => 'Regular Stamp Pad', 'slug' => 'regular-stamp-pad', 'price' => 120, 'compare_price' => 150, 'stock_quantity' => 80, 'category_id' => 2, 'sku' => 'STP-001'],
-            ['name' => 'Self-Inking Stamp Pad', 'slug' => 'self-inking-stamp-pad', 'price' => 350, 'compare_price' => 400, 'stock_quantity' => 40, 'category_id' => 2, 'sku' => 'STP-002'],
-            ['name' => 'Custom Rubber Stamp', 'slug' => 'custom-rubber-stamp', 'price' => 500, 'compare_price' => 600, 'stock_quantity' => 30, 'category_id' => 3, 'sku' => 'RUB-001'],
-            ['name' => 'Screen Printing Ink', 'slug' => 'screen-printing-ink', 'price' => 280, 'compare_price' => 320, 'stock_quantity' => 60, 'category_id' => 4, 'sku' => 'SCR-001'],
-            ['name' => 'Squeegee 25cm', 'slug' => 'squeegee-25cm', 'price' => 180, 'compare_price' => 220, 'stock_quantity' => 45, 'category_id' => 4, 'sku' => 'SCR-002'],
-            ['name' => 'Photo Emulsion', 'slug' => 'photo-emulsion', 'price' => 450, 'compare_price' => 500, 'stock_quantity' => 25, 'category_id' => 4, 'sku' => 'SCR-003'],
+            ['name' => 'Classic White Cotton Shirt', 'slug' => 'classic-white-cotton-shirt', 'price' => 1299, 'compare_price' => 1599, 'stock_quantity' => 100, 'category_id' => 1, 'sku' => 'MEN-001'],
+            ['name' => 'Premium Denim Jeans', 'slug' => 'premium-denim-jeans', 'price' => 1999, 'compare_price' => 2499, 'stock_quantity' => 50, 'category_id' => 1, 'sku' => 'MEN-002'],
+            ['name' => 'Floral Summer Dress', 'slug' => 'floral-summer-dress', 'price' => 1499, 'compare_price' => 1899, 'stock_quantity' => 80, 'category_id' => 2, 'sku' => 'WOM-001'],
+            ['name' => 'Elegant Silk Kurti', 'slug' => 'elegant-silk-kurti', 'price' => 999, 'compare_price' => 1299, 'stock_quantity' => 40, 'category_id' => 2, 'sku' => 'WOM-002'],
+            ['name' => 'Kids Party Wear Set', 'slug' => 'kids-party-wear-set', 'price' => 799, 'compare_price' => 999, 'stock_quantity' => 30, 'category_id' => 3, 'sku' => 'KID-001'],
+            ['name' => 'Leather Crossbody Bag', 'slug' => 'leather-crossbody-bag', 'price' => 2499, 'compare_price' => 2999, 'stock_quantity' => 60, 'category_id' => 4, 'sku' => 'ACC-001'],
+            ['name' => 'Classic Analog Watch', 'slug' => 'classic-analog-watch', 'price' => 3499, 'compare_price' => 3999, 'stock_quantity' => 45, 'category_id' => 4, 'sku' => 'ACC-002'],
+            ['name' => 'Running Sneakers', 'slug' => 'running-sneakers', 'price' => 1799, 'compare_price' => 2199, 'stock_quantity' => 25, 'category_id' => 5, 'sku' => 'FTW-001'],
         ];
 
         foreach ($products as $product) {
@@ -74,16 +75,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Create Blog Category
-        $blogCategory = BlogCategory::updateOrCreate(['slug' => 'news'], [
-            'name' => 'News',
-            'description' => 'Latest news and updates',
+        $blogCategory = BlogCategory::updateOrCreate(['slug' => 'fashion-tips'], [
+            'name' => 'Fashion Tips',
+            'description' => 'Style guides and fashion trends',
         ]);
 
         // Create Blog Post
-        BlogPost::updateOrCreate(['slug' => 'welcome-to-spm-enterprise'], [
-            'title' => 'Welcome to SPM Enterprise',
-            'content' => 'We are excited to launch our new e-commerce platform...',
-            'excerpt' => 'Welcome to our new online store!',
+        BlogPost::updateOrCreate(['slug' => 'welcome-to-clothing-cart'], [
+            'title' => 'Welcome to Clothing Cart',
+            'content' => 'Discover the latest fashion trends and elevate your style with our premium collection...',
+            'excerpt' => 'Welcome to our new fashion destination!',
             'is_published' => true,
             'published_at' => now(),
             'blog_category_id' => $blogCategory->id,
@@ -92,22 +93,22 @@ class DatabaseSeeder extends Seeder
 
         // Create Settings
         $settings = [
-            ['key' => 'site_name', 'value' => 'SPM Enterprise'],
-            ['key' => 'contact_email', 'value' => 'info@spmapp.com'],
+            ['key' => 'site_name', 'value' => 'Clothing Cart'],
+            ['key' => 'contact_email', 'value' => 'info@clothingcart.com'],
             ['key' => 'contact_phone', 'value' => '+91-9876543210'],
             ['key' => 'whatsapp_number', 'value' => '919876543210'],
-            ['key' => 'address', 'value' => '123, Business Street, Mumbai - 400001'],
+            ['key' => 'address', 'value' => '123, Fashion Street, Mumbai - 400001'],
             ['key' => 'gst_number', 'value' => '27AAAAA0000A1Z5'],
             ['key' => 'gst_rate', 'value' => '18'],
             ['key' => 'upi_id', 'value' => 'company@upi'],
             ['key' => 'bank_name', 'value' => 'State Bank of India'],
-            ['key' => 'bank_account_name', 'value' => 'SPM Enterprises'],
+            ['key' => 'bank_account_name', 'value' => 'Clothing Cart'],
             ['key' => 'bank_account_number', 'value' => '123456789012'],
             ['key' => 'bank_ifsc_code', 'value' => 'SBIN0001234'],
             ['key' => 'free_shipping_threshold', 'value' => '500'],
             ['key' => 'shipping_charge', 'value' => '50'],
-            ['key' => 'meta_description', 'value' => 'Buy paper products, stamp pads, rubber seals and screen printing materials online from SPM Enterprise.'],
-            ['key' => 'meta_keywords', 'value' => 'paper, stamp pad, rubber seal, screen printing, wholesale stationery'],
+            ['key' => 'meta_description', 'value' => 'Shop premium fashion and clothing online at Clothing Cart. Discover the latest trends in apparel, accessories, and footwear.'],
+            ['key' => 'meta_keywords', 'value' => 'fashion, clothing, apparel, mens fashion, womens fashion, kids fashion, accessories, footwear'],
         ];
 
         foreach ($settings as $setting) {

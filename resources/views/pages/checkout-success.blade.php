@@ -7,7 +7,7 @@
     <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
         <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
     </div>
-    <h1 class="text-3xl font-bold text-primary mb-4">Order Placed Successfully!</h1>
+    <h1 class="text-3xl font-serif font-bold text-primary mb-4">Order Placed Successfully!</h1>
     <p class="text-gray-600 mb-2">Thank you for your order.</p>
     <p class="text-lg font-semibold text-primary mb-4">Order #{{ $order->order_number }}</p>
 
@@ -22,7 +22,7 @@
     </div>
 
     <div class="card p-6 mb-8 text-left">
-        <h3 class="font-semibold text-primary mb-4">Order Summary</h3>
+        <h3 class="font-serif font-semibold text-primary mb-4">Order Summary</h3>
         <div class="space-y-2 text-sm">
             <div class="flex justify-between">
                 <span class="text-gray-600">UTR / Transaction ID</span>

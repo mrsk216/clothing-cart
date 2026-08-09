@@ -11,13 +11,13 @@
     <div class="max-w-7xl mx-auto px-4 py-3">
         <div class="flex items-center justify-between gap-4">
             <!-- Logo -->
-            <a href="<?php echo e(route('home')); ?>" class="flex items-center gap-2 shrink-0">
-                <div class="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                    <span class="text-white font-bold">SPM</span>
+            <a href="<?php echo e(route('home')); ?>" class="flex items-center gap-2 shrink-0 group">
+                <div class="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 animate-pulse-glow">
+                    <span class="text-white font-serif font-bold text-lg">CC</span>
                 </div>
                 <div class="hidden sm:block">
-                    <h1 class="text-lg font-bold text-primary leading-tight"><?php echo e($siteName()); ?></h1>
-                    <p class="text-xs text-gray-500">Paper, Stamp Pad, Rubber Seal</p>
+                    <h1 class="text-lg font-serif font-bold text-primary leading-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"><?php echo e($siteName()); ?></h1>
+                    <p class="text-xs text-gray-500 tracking-widest uppercase">Fashion & Clothing</p>
                 </div>
             </a>
 
@@ -27,7 +27,7 @@
                     <svg class="search-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
-                    <input type="text" placeholder="Search products..." class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-full focus:border-secondary focus:ring-2 focus:ring-secondary/20 focus:outline-none" id="search-input">
+                    <input type="text" placeholder="Search fashion, clothing, accessories..." class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-full focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" id="search-input">
                     <div class="search-suggestions" id="search-suggestions">
                         <div class="p-3 text-sm text-gray-500">Start typing to search products...</div>
                     </div>
@@ -37,14 +37,14 @@
             <!-- Right Icons -->
             <div class="flex items-center gap-3">
                 <!-- Wishlist -->
-                <a href="<?php echo e(route('wishlist')); ?>" class="relative p-2 text-gray-600 hover:text-secondary transition-colors">
+                <a href="<?php echo e(route('wishlist')); ?>" class="relative p-2 text-gray-600 hover:text-primary transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                     </svg>
                 </a>
 
                 <!-- Cart -->
-                <a href="<?php echo e(route('cart')); ?>" class="relative p-2 text-gray-600 hover:text-secondary transition-colors">
+                <a href="<?php echo e(route('cart')); ?>" class="relative p-2 text-gray-600 hover:text-primary transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
                     </svg>
@@ -55,9 +55,9 @@
                 <div class="hidden md:block">
                     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
                         <div class="relative" x-data="{ open: false }">
-                            <button @click="open = !open" class="flex items-center gap-2 p-2 text-gray-600 hover:text-secondary transition-colors">
-                                <div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
-                                    <span class="text-sm font-semibold text-secondary"><?php echo e(substr(Auth::user()->name, 0, 1)); ?></span>
+                            <button @click="open = !open" class="flex items-center gap-2 p-2 text-gray-600 hover:text-primary transition-colors">
+                                <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                    <span class="text-sm font-semibold text-primary"><?php echo e(substr(Auth::user()->name, 0, 1)); ?></span>
                                 </div>
                                 <span class="hidden lg:block text-sm font-medium"><?php echo e(Auth::user()->name); ?></span>
                             </button>
@@ -96,21 +96,21 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="hidden md:block border-t border-gray-100 bg-gray-50">
+    <nav class="hidden md:block border-t border-gray-100 bg-white">
         <div class="max-w-7xl mx-auto px-4">
             <ul class="flex items-center gap-1">
                 <li>
-                    <a href="<?php echo e(route('home')); ?>" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-secondary hover:bg-white rounded-t-lg transition-colors">
+                    <a href="<?php echo e(route('home')); ?>" class="fashion-nav-link block px-4 py-2.5">
                         Home
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo e(route('shop')); ?>" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-secondary hover:bg-white rounded-t-lg transition-colors">
+                    <a href="<?php echo e(route('shop')); ?>" class="fashion-nav-link block px-4 py-2.5">
                         All Products
                     </a>
                 </li>
                 <li class="relative group">
-                    <a href="#" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-secondary hover:bg-white rounded-t-lg transition-colors flex items-center gap-1">
+                    <a href="#" class="fashion-nav-link block px-4 py-2.5 flex items-center gap-1">
                         Categories
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -119,14 +119,14 @@
                     <div class="absolute left-0 mt-0 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-2 hidden group-hover:block z-50">
                         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
                             <div class="relative group/sub">
-                                <a href="<?php echo e(route('shop', ['category' => $category->slug])); ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-secondary">
+                                <a href="<?php echo e(route('shop', ['category' => $category->slug])); ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary">
                                     <?php echo e($category->name); ?>
 
                                 </a>
                                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($category->children->count() > 0): ?>
                                     <div class="absolute left-full top-0 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-2 hidden group-hover/sub:block">
                                         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $category->children; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-                                            <a href="<?php echo e(route('shop', ['category' => $child->slug])); ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-secondary">
+                                            <a href="<?php echo e(route('shop', ['category' => $child->slug])); ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary">
                                                 <?php echo e($child->name); ?>
 
                                             </a>
@@ -138,17 +138,17 @@
                     </div>
                 </li>
                 <li>
-                    <a href="<?php echo e(route('about')); ?>" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-secondary hover:bg-white rounded-t-lg transition-colors">
+                    <a href="<?php echo e(route('about')); ?>" class="fashion-nav-link block px-4 py-2.5">
                         About
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo e(route('blog')); ?>" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-secondary hover:bg-white rounded-t-lg transition-colors">
+                    <a href="<?php echo e(route('blog')); ?>" class="fashion-nav-link block px-4 py-2.5">
                         Blog
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo e(route('contact')); ?>" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-secondary hover:bg-white rounded-t-lg transition-colors">
+                    <a href="<?php echo e(route('contact')); ?>" class="fashion-nav-link block px-4 py-2.5">
                         Contact
                     </a>
                 </li>
@@ -163,7 +163,7 @@
                 <svg class="search-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
-                <input type="text" placeholder="Search products..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:border-secondary focus:ring-2 focus:ring-secondary/20 focus:outline-none text-sm">
+                <input type="text" placeholder="Search fashion, clothing..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm">
             </div>
             <ul class="space-y-1">
                 <li><a href="<?php echo e(route('home')); ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg">Home</a></li>
@@ -177,9 +177,9 @@
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
                 <li>
                     <div class="relative" x-data="{ open: false }">
-                        <button @click="open = !open" class="flex items-center gap-2 p-2 text-gray-600 hover:text-secondary transition-colors w-full">
-                            <div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
-                                <span class="text-sm font-semibold text-secondary"><?php echo e(substr(Auth::user()->name, 0, 1)); ?></span>
+                        <button @click="open = !open" class="flex items-center gap-2 p-2 text-gray-600 hover:text-primary transition-colors w-full">
+                            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                <span class="text-sm font-semibold text-primary"><?php echo e(substr(Auth::user()->name, 0, 1)); ?></span>
                             </div>
                             <span class="text-sm font-medium"><?php echo e(Auth::user()->name); ?></span>
                             <svg class="w-4 h-4 ml-auto transition-transform" :class="open && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>

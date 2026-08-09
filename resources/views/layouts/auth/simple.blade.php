@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="@yield('meta_description', config('app.name', 'SPM App'))">
+    <meta name="description" content="@yield('meta_description', config('app.name', 'Clothing Cart'))">
     <title>@yield('title', __('Login')) – {{ $siteName() }}</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -25,12 +25,12 @@
             <!-- Logo centered -->
             <div class="text-center mb-8">
                 <a href="{{ route('home') }}" class="inline-flex items-center gap-3">
-                    <div class="w-12 h-12 bg-secondary rounded-xl flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">SPM</span>
+                    <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center shadow-lg animate-pulse-glow">
+                        <span class="text-white font-serif font-bold text-lg">CC</span>
                     </div>
                     <div class="text-left hidden sm:block">
-                        <h1 class="text-xl font-bold text-primary leading-tight">{{ $siteName() }}</h1>
-                        <p class="text-xs text-gray-500">Paper, Stamp Pad, Rubber Seal</p>
+                        <h1 class="text-xl font-serif font-bold text-primary leading-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{{ $siteName() }}</h1>
+                        <p class="text-xs text-gray-500 tracking-widest uppercase">Fashion & Clothing</p>
                     </div>
                 </a>
             </div>

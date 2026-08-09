@@ -12,13 +12,13 @@
         <span class="current">Checkout</span>
     </div>
 
-    <h1 class="text-2xl font-bold text-primary mb-6">Checkout</h1>
+    <h1 class="text-2xl font-serif font-bold text-primary mb-6">Checkout</h1>
 
     <form method="POST" action="{{ route('checkout.process') }}" enctype="multipart/form-data" class="grid lg:grid-cols-3 gap-8">
         @csrf
         <div class="lg:col-span-2 space-y-6">
             <div class="card p-6">
-                <h3 class="font-semibold text-primary mb-4">Shipping Address</h3>
+                <h3 class="font-serif font-semibold text-primary mb-4">Shipping Address</h3>
                 <div class="grid md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
@@ -48,8 +48,9 @@
             </div>
 
             <div class="card p-6">
-                <h3 class="font-semibold text-primary mb-4">Payment Method</h3>
-                <div class="space-y-3">
+                <h3 class="font-serif font-semibold text-primary mb-4">Payment Method</h3>
+                <p class="text-gray-400 text-sm">Payment Method will be place here</p>
+                {{-- <div class="space-y-3">
                     <label class="flex items-center gap-3 p-4 border-2 border-secondary rounded-lg cursor-pointer">
                         <input type="radio" name="payment_method" value="qr_code" checked class="text-secondary">
                         <div>
@@ -71,12 +72,12 @@
                             <p class="text-sm text-gray-500">Pay via NEFT/IMPS bank transfer</p>
                         </div>
                     </label>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Payment Details Section -->
-            <div class="card p-6" id="paymentDetails">
-                <h3 class="font-semibold text-primary mb-4">Payment Details</h3>
+            {{-- <div class="card p-6" id="paymentDetails">
+                <h3 class="font-serif font-semibold text-primary mb-4">Payment Details</h3>
 
                 <!-- QR Code Payment -->
                 <div id="qrCodeSection" class="payment-section">
@@ -96,7 +97,7 @@
                 <div id="upiSection" class="payment-section hidden">
                     <div class="bg-gray-50 p-4 rounded-lg space-y-2 text-sm">
                         <p><strong>UPI ID:</strong> <span class="text-primary">{{ $settings['upi_id'] ?? 'company@upi' }}</span></p>
-                        <p><strong>UPI Name:</strong> <span class="text-primary">{{ $settings['bank_account_name'] ?? 'SPM Enterprises' }}</span></p>
+                        <p><strong>UPI Name:</strong> <span class="text-primary">{{ $settings['bank_account_name'] ?? 'Clothing Cart' }}</span></p>
                         <p class="text-xs text-gray-500 mt-2">Open your UPI app (Google Pay, PhonePe, Paytm) and pay to this UPI ID</p>
                     </div>
                 </div>
@@ -105,7 +106,7 @@
                 <div id="bankSection" class="payment-section hidden">
                     <div class="bg-gray-50 p-4 rounded-lg space-y-2 text-sm">
                         <p><strong>Bank Name:</strong> <span class="text-primary">{{ $settings['bank_name'] ?? 'State Bank of India' }}</span></p>
-                        <p><strong>Account Name:</strong> <span class="text-primary">{{ $settings['bank_account_name'] ?? 'SPM Enterprises' }}</span></p>
+                        <p><strong>Account Name:</strong> <span class="text-primary">{{ $settings['bank_account_name'] ?? 'Clothing Cart' }}</span></p>
                         <p><strong>Account Number:</strong> <span class="text-primary">{{ $settings['bank_account_number'] ?? '123456789012' }}</span></p>
                         <p><strong>IFSC Code:</strong> <span class="text-primary">{{ $settings['bank_ifsc_code'] ?? 'SBIN0001234' }}</span></p>
                         <p><strong>Account Type:</strong> <span class="text-primary">Current Account</span></p>
@@ -132,12 +133,12 @@
                         @enderror
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <div class="lg:col-span-1">
             <div class="card p-6">
-                <h3 class="font-semibold text-primary mb-4">Order Summary</h3>
+                <h3 class="font-serif font-semibold text-primary mb-4">Order Summary</h3>
                 <div class="space-y-2 mb-4">
                     <div class="flex justify-between text-sm">
                         <span class="text-gray-600">Subtotal</span>

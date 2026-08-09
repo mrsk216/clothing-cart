@@ -34,7 +34,7 @@
             @endif
         </div>
 
-        <h1 class="text-3xl font-bold text-primary mt-2 mb-4">{{ $post->title }}</h1>
+        <h1 class="text-3xl font-serif font-bold text-primary mt-2 mb-4">{{ $post->title }}</h1>
 
         @if($post->excerpt)
             <p class="text-gray-600 italic mb-6 border-l-4 border-secondary pl-4">{{ $post->excerpt }}</p>
@@ -55,7 +55,7 @@
 
     {{-- Comments Section --}}
     <div class="card p-6 md:p-8 mt-8">
-        <h2 class="text-xl font-bold text-primary mb-6">
+        <h2 class="text-xl font-serif font-bold text-primary mb-6">
             Comments ({{ $post->approvedComments->count() }})
         </h2>
 

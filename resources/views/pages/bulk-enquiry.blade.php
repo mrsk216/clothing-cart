@@ -1,8 +1,8 @@
 @extends('layouts.guest')
 
 @section('title', 'Bulk Order Enquiry - ' . $siteName())
-@section('meta_description', 'Request wholesale pricing for paper, stamp pads, rubber seals and screen printing materials. Submit your bulk order enquiry.')
-@section('meta_keywords', 'bulk order, wholesale, paper wholesale, stamp pad bulk, screen printing materials')
+@section('meta_description', 'Request wholesale pricing for fashion and clothing. Submit your bulk order enquiry for premium apparel, accessories, and footwear.')
+@section('meta_keywords', 'bulk order, wholesale, fashion wholesale, clothing bulk, apparel wholesale')
 
 @section('content')
 <div class="max-w-3xl mx-auto px-4 py-8">
@@ -12,7 +12,7 @@
         <span class="current">Bulk Order Enquiry</span>
     </div>
 
-    <h1 class="text-2xl font-bold text-primary mb-2">Bulk Order Enquiry</h1>
+    <h1 class="text-2xl font-serif font-bold text-primary mb-2">Bulk Order Enquiry</h1>
     <p class="text-gray-600 mb-6">Need wholesale quantities? Share your requirements and our team will respond with pricing.</p>
 
     @if(session('success'))

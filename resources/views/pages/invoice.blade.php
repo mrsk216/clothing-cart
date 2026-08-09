@@ -54,7 +54,7 @@
 <div class="invoice">
     <div class="header">
         <div class="brand">
-            <h1>{{ $settings['site_name'] ?? 'SPM Enterprise' }}</h1>
+            <h1>{{ $settings['site_name'] ?? 'Clothing Cart' }}</h1>
             <p>
                 {{ $settings['address'] ?? '' }}<br>
                 Phone: {{ $settings['contact_phone'] ?? '' }}<br>

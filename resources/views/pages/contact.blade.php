@@ -10,7 +10,7 @@
         <span class="current">Contact Us</span>
     </div>
 
-    <h1 class="text-2xl font-bold text-primary mb-6">Contact Us</h1>
+    <h1 class="text-2xl font-serif font-bold text-primary mb-6">Contact Us</h1>
 
     <div class="grid md:grid-cols-3 gap-8 mb-12">
         <div class="card p-6 text-center">
@@ -38,7 +38,7 @@
 
     <div class="grid md:grid-cols-2 gap-8">
         <div class="card p-6">
-            <h3 class="font-semibold text-primary mb-4">Send us a Message</h3>
+            <h3 class="font-serif font-semibold text-primary mb-4">Send us a Message</h3>
             <form method="POST" action="{{ route('contact.send') }}" class="space-y-4">
                 @csrf
                 <div>
@@ -80,7 +80,7 @@
         </div>
         <div>
             <div class="card p-6 mb-6">
-                <h3 class="font-semibold text-primary mb-4">Our Address</h3>
+                <h3 class="font-serif font-semibold text-primary mb-4">Our Address</h3>
                 <p class="text-gray-600">{{ $contactAddress() }}</p>
             </div>
             <div class="bg-gray-100 rounded-xl h-64 flex items-center justify-center">

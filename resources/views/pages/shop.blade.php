@@ -14,7 +14,7 @@
         <!-- Filters Sidebar -->
         <div class="w-full lg:w-64 shrink-0 space-y-4">
             <div class="card p-4">
-                <h3 class="font-semibold text-primary mb-4">Categories</h3>
+                <h3 class="font-semibold text-primary mb-4 font-serif">Categories</h3>
                 <div class="space-y-2">
                     <a href="{{ route('shop', request()->except('category', 'page')) }}" class="block text-sm {{ !request('category') ? 'text-secondary font-medium' : 'text-gray-600 hover:text-secondary' }}">All Products</a>
                     @foreach($categories as $category)
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="card p-4">
-                <h3 class="font-semibold text-primary mb-4">Price Filter</h3>
+                <h3 class="font-semibold text-primary mb-4 font-serif">Price Filter</h3>
                 <form method="GET" action="{{ route('shop') }}" class="space-y-3">
                     @if(request('category'))
                         <input type="hidden" name="category" value="{{ request('category') }}">
@@ -64,7 +64,7 @@
                             <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                         @endif
                     @endforeach
-                    <select name="sort" onchange="this.form.submit()" class="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:border-secondary focus:outline-none">
+                    <select name="sort" onchange="this.form.submit()" class="text-sm border border-gray-300 rounded-full px-3 py-2 focus:border-primary focus:outline-none">
                         <option value="latest" {{ request('sort') === 'latest' ? 'selected' : '' }}>Latest</option>
                         <option value="price-low" {{ request('sort') === 'price-low' ? 'selected' : '' }}>Price: Low to High</option>
                         <option value="price-high" {{ request('sort') === 'price-high' ? 'selected' : '' }}>Price: High to Low</option>
@@ -77,17 +77,31 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($products as $product)
                         <div class="product-card">
-                            <a href="{{ route('product.detail', $product->slug) }}" class="block aspect-square bg-gray-50 overflow-hidden">
+                            <a href="{{ route('product.detail', $product->slug) }}" class="block fashion-product-image">
                                 <div class="w-full h-full bg-gradient-to-br from-secondary/10 to-primary/10 flex items-center justify-center">
                                     @if ($product->primaryImage != null)
                                         <img src="{{ asset('storage/'. $product->primaryImage->image_path) }}" alt="{{ $product->name }}" class="w-full h-full">
                                     @else
-                                        <span class="text-4xl">📦</span>
+                                        <span class="text-4xl">👕</span>
+                                    @endif
+                                </div>
+                                @if($product->discount_percent > 0)
+                                    <span class="fashion-badge-sale">-{{ $product->discount_percent }}%</span>
+                                @endif
+                                <div class="fashion-quick-add">
+                                    @if($product->stock_quantity > 0)
+                                        <button onclick="addToCart({{ $product->id }})" class="w-full bg-white text-primary py-2.5 rounded-full font-semibold shadow-lg hover:bg-primary hover:text-white transition-colors">
+                                            Add to Cart
+                                        </button>
+                                    @else
+                                        <button class="w-full bg-gray-200 text-gray-500 py-2.5 rounded-full font-semibold cursor-not-allowed">
+                                            Out of Stock
+                                        </button>
                                     @endif
                                 </div>
                             </a>
                             <div class="p-4">
-                                <span class="text-xs text-secondary font-medium">{{ $product->category?->name ?? 'General' }}</span>
+                                <span class="text-xs text-secondary font-medium tracking-wider uppercase">{{ $product->category?->name ?? 'General' }}</span>
                                 <a href="{{ route('product.detail', $product->slug) }}">
                                     <h3 class="font-semibold text-primary mt-1 mb-2 line-clamp-2 hover:text-secondary">{{ $product->name }}</h3>
                                 </a>
@@ -98,16 +112,7 @@
                                     @endif
                                 </div>
                                 <div class="flex gap-2 mt-2">
-                                    @if($product->stock_quantity > 0)
-                                        <button onclick="addToCart({{ $product->id }})" class="flex-1 btn-primary text-sm py-2">
-                                            Add to Cart
-                                        </button>
-                                    @else
-                                        <button class="flex-1 btn-primary text-sm py-2" disabled>
-                                            Out of Stock
-                                        </button>
-                                    @endif
-                                    <button onclick="addToWishlist({{ $product->id }})" class="w-10 h-10 bg-white rounded-lg shadow flex items-center justify-center text-gray-600 hover:text-error transition-colors">
+                                    <button onclick="addToWishlist({{ $product->id }})" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center text-gray-600 hover:text-error transition-colors">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                                         </svg>

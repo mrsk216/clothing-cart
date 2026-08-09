@@ -10,7 +10,7 @@
         <span class="current">Blog</span>
     </div>
 
-    <h1 class="text-2xl font-bold text-primary mb-6">Our Blog</h1>
+    <h1 class="text-2xl font-serif font-bold text-primary mb-6">Fashion Blog</h1>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($posts as $post)
@@ -19,11 +19,11 @@
                     <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-56 object-cover">
                 @else
                     <div class="aspect-video bg-gradient-to-br from-secondary/10 to-primary/10 flex items-center justify-center">
-                        <span class="text-4xl">📝</span>
-                    </div>                    
+                        <span class="text-4xl">👗</span>
+                    </div>
                 @endif
                 <div class="p-4">
-                    <span class="text-xs text-secondary font-medium">{{ $post->category?->name ?? 'General' }}</span>
+                    <span class="text-xs text-secondary font-medium tracking-wider uppercase">{{ $post->category?->name ?? 'General' }}</span>
                     <a href="{{ route('blog.show', $post->slug) }}">
                         <h3 class="font-semibold text-primary mt-1 mb-2 line-clamp-2 hover:text-secondary">{{ $post->title }}</h3>
                     </a>

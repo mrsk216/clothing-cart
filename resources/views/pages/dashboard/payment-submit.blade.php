@@ -72,7 +72,7 @@
                     <div id="upiSection" class="payment-section hidden">
                         <div class="bg-gray-50 p-4 rounded-lg space-y-2 text-sm">
                             <p><strong>UPI ID:</strong> <span class="text-primary">{{ $settings['upi_id'] ?? 'company@upi' }}</span></p>
-                            <p><strong>UPI Name:</strong> <span class="text-primary">{{ $settings['bank_account_name'] ?? 'SPM Enterprises' }}</span></p>
+                            <p><strong>UPI Name:</strong> <span class="text-primary">{{ $settings['bank_account_name'] ?? 'Clothing Cart' }}</span></p>
                             <p class="text-xs text-gray-500 mt-2">Open your UPI app (Google Pay, PhonePe, Paytm) and pay to this UPI ID</p>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                     <div id="bankSection" class="payment-section hidden">
                         <div class="bg-gray-50 p-4 rounded-lg space-y-2 text-sm">
                             <p><strong>Bank Name:</strong> <span class="text-primary">{{ $settings['bank_name'] ?? 'State Bank of India' }}</span></p>
-                            <p><strong>Account Name:</strong> <span class="text-primary">{{ $settings['bank_account_name'] ?? 'SPM Enterprises' }}</span></p>
+                            <p><strong>Account Name:</strong> <span class="text-primary">{{ $settings['bank_account_name'] ?? 'Clothing Cart' }}</span></p>
                             <p><strong>Account Number:</strong> <span class="text-primary">{{ $settings['bank_account_number'] ?? '123456789012' }}</span></p>
                             <p><strong>IFSC Code:</strong> <span class="text-primary">{{ $settings['bank_ifsc_code'] ?? 'SBIN0001234' }}</span></p>
                             <p><strong>Account Type:</strong> <span class="text-primary">Current Account</span></p>

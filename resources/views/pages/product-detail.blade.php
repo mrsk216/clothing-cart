@@ -59,12 +59,14 @@
                     <div class="swiper-button-prev productThumbSlider-prev !text-white w-8 h-8 bg-primary/80 rounded-full p-3"></div>
                 </div>
             @else
-                <span class="text-6xl">📦</span>
+                <div class="w-full h-full bg-gradient-to-br from-secondary/10 to-primary/10 flex items-center justify-center rounded-2xl">
+                    <span class="text-6xl">👕</span>
+                </div>
             @endif
         </div>
         <div>
-            <span class="text-sm text-secondary font-medium">{{ $product->category?->name ?? 'General' }}</span>
-            <h1 class="text-2xl md:text-3xl font-bold text-primary mt-2 mb-4">{{ $product->name }}</h1>
+            <span class="text-sm text-secondary font-medium tracking-wider uppercase">{{ $product->category?->name ?? 'General' }}</span>
+            <h1 class="text-2xl md:text-3xl font-serif font-bold text-primary mt-2 mb-4">{{ $product->name }}</h1>
 
             <div class="flex items-center gap-3 mb-4">
                 <span class="text-3xl font-bold text-primary">₹{{ number_format($product->final_price, 2) }}</span>
@@ -95,7 +97,7 @@
                         Out of Stock
                     </button>
                 @endif
-                <button onclick="addToWishlist({{ $product->id }})" class="w-12 h-12 border-2 border-gray-300 rounded-lg flex items-center justify-center text-gray-600 hover:text-error hover:border-error transition-colors">
+                <button onclick="addToWishlist({{ $product->id }})" class="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:text-error hover:border-error transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 </button>
             </div>
@@ -127,13 +129,13 @@
         <div class="flex border-b border-slate-200">
             <button
             @click="activeTab = 'description'"
-            :class="activeTab === 'description' ? 'border-blue-600 text-blue-600 font-semibold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
+            :class="activeTab === 'description' ? 'border-primary text-primary font-semibold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
             class="px-4 py-3 border-b-2 text-sm font-medium transition-all duration-200 focus:outline-none">
                 Description
             </button>
             <button
             @click="activeTab = 'review'"
-            :class="activeTab === 'review' ? 'border-blue-600 text-blue-600 font-semibold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
+            :class="activeTab === 'review' ? 'border-primary text-primary font-semibold' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
             class="px-4 py-3 border-b-2 text-sm font-medium transition-all duration-200 focus:outline-none">
                 Reviews
             </button>
@@ -175,8 +177,8 @@
                             <div class="border border-gray-200 rounded-lg p-4">
                                 <div class="flex items-center justify-between mb-2">
                                     <div class="flex items-center gap-2">
-                                        <div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
-                                            <span class="text-xs font-bold text-secondary">{{ substr($review->user->name, 0, 1) }}</span>
+                                        <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                            <span class="text-xs font-bold text-primary">{{ substr($review->user->name, 0, 1) }}</span>
                                         </div>
                                         <div>
                                             <p class="font-medium text-sm text-primary">{{ $review->user->name }}</p>
@@ -206,16 +208,16 @@
 
     @if($relatedProducts->count() > 0)
     <div class="mb-12">
-        <h2 class="section-title mb-6">Related Products</h2>
+        <h2 class="section-title mb-6">You May Also Like</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($relatedProducts as $related)
                 <div class="product-card">
-                    <a href="{{ route('product.detail', $related->slug) }}" class="block aspect-square bg-gray-50 overflow-hidden">
+                    <a href="{{ route('product.detail', $related->slug) }}" class="block fashion-product-image">
                         <div class="w-full h-full bg-gradient-to-br from-secondary/10 to-primary/10 flex items-center justify-center">
                             @if ($related->primaryImage != null)
                                 <img src="{{ asset('storage/'. $related->primaryImage->image_path) }}" alt="{{ $related->name }}" class="w-full h-full">
                             @else
-                                <span class="text-4xl">📦</span>
+                                <span class="text-4xl">👕</span>
                             @endif
                         </div>
                     </a>

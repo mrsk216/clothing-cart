@@ -742,7 +742,6 @@ input[type="range"]::-webkit-slider-thumb {
 
 .fashion-category {
     width: 100%;
-    height: 26rem;
     /* Fashion category circular cards */
     .fashion-category-circle {
         @apply flex flex-col items-center text-center gap-5 py-6;

@@ -35,7 +35,7 @@
     </div>
 
     <div class="grid md:grid-cols-2 gap-8 mb-12">
-        <div class="aspect-square mb-4">
+        <div class="aspect-square overflow-hidden mb-4">
             @if ($product->images != null)
                 <div class="swiper mySwiper2 productThumbSlider2">
                     <div class="swiper-wrapper">
